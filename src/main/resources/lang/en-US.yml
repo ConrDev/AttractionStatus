@@ -1,0 +1,53 @@
+# Errors
+errors:
+  no-permissions: "&cSorry, you don't have permission to run this command!"
+  player-only: "&cThis command cannot be used in the Console!"
+  command-not-found: "&cCommand not found!"
+  dexist: "does not exist!"
+  exists: "already exists!"
+  wrong-command: "This command is wrong! you need to type this in:"
+# Messages
+messages:
+  succes-tp: "you have been teleported to"
+  succes-removed: "has been successfully removed!"
+  succes-created: "has been successfully created!"
+  zone-changed: "Zone has changed to"
+  status-changed: "Status has changed to"
+  # Messages for Attractions
+  attraction:
+    # Messages for AttractionData
+    data:
+      creating: "Creating attraction data for"
+      loading: "Loading attraction data for"
+      saving: "saving attraction data for"
+    not-found: "The attraction could not be found"
+  # Messages for ZoneData
+  zone:
+    zonedata-creating: "Creating zone data for"
+    zonedata-loading: "Loading zone data for"
+    zonedata-saving: "Saving zone data for"
+  # Messages for Variables
+  variables:
+    name: "add name variable to"
+    status: "Add status variable to"
+    zone: "Add zone variable to"
+    owner: "Add owner variable to"
+    icon: "Add icon variable to"
+    attraction: "Add attraction variable to"
+  # Messages for Attraction Signs
+  asigns:
+    created: "Attraction Sign successfully created!"
+    asigns.removed: "The attraction sign has been removed successfully!"
+# Commands
+commands:
+  as-help: "Let's you show all the commands of AttractionStatus"
+  as-add: "add an Attraction with a status to the list"
+  as-remove: "remove an Attraction from the list"
+  as-setstatus: "change the Status of an Attraction"
+  as-addzone: "add a Zone to the list"
+  as-setzone: "change the Zone of an Attraction"
+  as-removezone: "remove a Zone from the list"
+  as-tp: "teleport to a Attractions in an easy way!"
+  as-list: "show you a list of all Attractions and Zones"
+  as-msg1: "No attractions were found!"
+  as-msg2: "Maybe you should make some ;)"

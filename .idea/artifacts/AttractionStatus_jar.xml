@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="AttractionStatus:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/AttractionStatus_jar</output-path>
+    <root id="archive" name="AttractionStatus.jar">
+      <element id="module-output" name="AttractionStatus" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/plugin.yml" />
+    </root>
+  </artifact>
+</component>

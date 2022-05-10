@@ -1,0 +1,53 @@
+# Errors
+errors:
+  no-permissions: "&cSorry, u hebt geen permissie om dit commando uit te voeren!"
+  player-only: "&cDit commando kan niet gebruikt worden in de Console!"
+  command-not-found: "&cCommando niet gevonden!"
+  dexist: "bestaat niet!"
+  exists: "bestaat al!"
+  wrong-command: "Dit commando is fout! u moet dit in typen:"
+# Messages
+messages:
+  succes-tp: "u bent geteleporteerd naard"
+  succes-removed: "is succesfully verwijderd!"
+  succes-created: "is succesfully aangemaakt!"
+  zone-changed: "Zone is veranderd naar"
+  status-changed: "Status is veranderd naar"
+  # Messages for Attractions
+  attraction:
+    # Messages for AttractionData
+    data:
+      creating: "Attractie data maken voor"
+      loading: "Attractie data laden voor"
+      saving: "Attractie data opslaan voor"
+    not-found: "De attractie kon niet gevonden worden"
+  # Messages for ZoneData
+  zone:
+    zonedata-creating: "Zone data maken voor"
+    zonedata-loading: "Zone data laden voor"
+    zonedata-saving: "Zone data opslaan voor"
+  # Messages for Variables
+  variables:
+    name: "Name variable toevoegen aan"
+    status: "Status variable toevoegen aan"
+    zone: "Zone variable toevoegen aan"
+    owner: "Owner variable toevoegen aan"
+    icon: "Icon variable toevoegen aan"
+    attraction: "Attraction variable toevoegen aan"
+  # Messages for Attraction Signs
+  asigns:
+    created: "Attractie Sign succesvol aangemaakt!"
+    asigns.removed: "De attractie sign is succesvol verwijderd!"
+# Commands
+commands:
+  as-help: "laat u alle commandos zien van AttractieStatus"
+  as-add: "voeg een Attractie met de status toe aan de lijst"
+  as-remove: "verwijder een Attractie van de lijst"
+  as-setstatus: "verander de Status van een Attractie"
+  as-addzone: "voeg een Zone toe aan de lijst"
+  as-setzone: "verander de Zone van een Attractie"
+  as-removezone: "verwijder een Zone van de lijst"
+  as-tp: "tp naar een Attracties op een makkelijk manier!"
+  as-list: "laat u een lijst zien van alle Attracties en Zones"
+  as-msg1: "Er zijn geen Attracties gevonden!"
+  as-msg2: "Misschien moet u er een paar maken ;)"

@@ -37,7 +37,7 @@ messages:
   # Messages for Attraction Signs
   asigns:
     created: "Attraction Sign successfully created!"
-    asigns.removed: "The attraction sign has been removed successfully!"
+    removed: "The attraction sign has been removed successfully!"
 # Commands
 commands:
   as-help: "Let's you show all the commands of AttractionStatus"

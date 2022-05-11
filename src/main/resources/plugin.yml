@@ -2,7 +2,7 @@ name: AttractionStatus
 version: '${project.version}'
 main: me.conrdev.attractionstatus.Core
 api-version: 1.18
-prefix: AS
+prefix: AttractionStatus
 load: STARTUP
 authors: [ ConrDev ]
 description: AttractionStatus Plugin is made for Amusement park servers.

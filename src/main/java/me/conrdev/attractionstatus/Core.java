@@ -8,6 +8,7 @@ import me.conrdev.attractionstatus.utils.Util;
 
 import me.conrdev.lib.gui.MenuAPI;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.PluginManager;
@@ -19,27 +20,45 @@ import java.util.Map;
 public final class Core extends JavaPlugin {
 
     private static Core plugin;
+
+    private static ConfigManager configManager;
+    private static Configs configs;
     private Util util;
 
-    public static YamlConfiguration lang;
-    public static File langFile;
+    public YamlConfiguration lang;
+    public File langFile;
+
+    private String LANG;
+
+    public String CHAT_PREFIX;
+    public String CONSOLE_PREFIX;
+
 
     @Override
     public void onEnable() {
         // Plugin startup logic
+        this.CONSOLE_PREFIX = "[" + getDescription().getPrefix() + "] " + ChatColor.RESET;
 
         // Loading Settings
         PluginManager pm = Bukkit.getServer().getPluginManager();
         plugin = this;
 
         // Loading Constructors
-        ConfigManager.getInstance().setPlugin(this);
-        Configs.getInstance().setPlugin(this);
+        setConfigManager();
+        setConfigs();
+//        ConfigManager.getInstance().setPlugin(this);
+//        ConfigManager configManager = ConfigManager.getInstance();
+
+//        Configs.getInstance().setPlugin(this);
+//        Configs configs = Configs.getInstance();
 
 //        new Configs(this);
 
         // Loading Configs
-        boolean ConfigsLoaded = Configs.getInstance().loadConfigs();
+        boolean ConfigsLoaded = configs.loadConfigs();
+
+        setPluginLang(configManager.getString(configs.getConfig(), "AttractionStatus.Lang"));
+        setPrefix(configManager.getString(configs.getConfig(), "AttractionStatus.Prefix"));
 
         // TODO: Load.AllFiles();
 
@@ -81,5 +100,37 @@ public final class Core extends JavaPlugin {
 
     public static String getPluginVersion() {
         return plugin.getDescription().getVersion();
+    }
+
+    public String getPluginLang() {
+        return this.LANG;
+    }
+
+    public static ConfigManager getConfigManager() {
+        return configManager;
+    }
+
+    public static Configs getConfigs() {
+        return configs;
+    }
+
+    private void setPluginLang(String language) {
+        this.LANG = language;
+        Util.msg(plugin.getServer().getConsoleSender(),  CONSOLE_PREFIX + "Language set to: &d" + language);
+    }
+
+    private void setPrefix(String prefix) {
+        this.CHAT_PREFIX = "[" + prefix + "] " + ChatColor.RESET;
+        Util.msg(plugin.getServer().getConsoleSender(),  CONSOLE_PREFIX + "Chat Prefix set to: &d" + prefix);
+    }
+
+    private void setConfigManager() {
+        configManager = ConfigManager.getInstance();
+        configManager.setPlugin(this);
+    }
+
+    private void setConfigs() {
+        configs = Configs.getInstance();
+        configs.setPlugin(this);
     }
 }

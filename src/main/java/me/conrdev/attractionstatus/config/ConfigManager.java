@@ -11,11 +11,14 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ConfigManager {
-    private static ConfigManager single_instance = null;
+    private static ConfigManager instance = null;
 
     private ArrayList<FileConfiguration> configs = new ArrayList<>();
     private ArrayList<String> configNames = new ArrayList<>();
@@ -23,9 +26,9 @@ public class ConfigManager {
     private Core plugin = null;
 
     public static ConfigManager getInstance() {
-        if (single_instance == null) single_instance = new ConfigManager();
+        if (instance == null) instance = new ConfigManager();
 
-        return single_instance;
+        return instance;
     }
 
     public void setPlugin(Core plugin) {
@@ -64,7 +67,16 @@ public class ConfigManager {
 
         if (!configFile.exists()) {
             configFile.getParentFile().mkdirs();
-            plugin.saveResource(name, false);
+
+            if (plugin.getResource(name) != null) {
+                plugin.saveResource(name, false);
+            } else {
+                try {
+                    Files.createFile(Paths.get(configFile.getPath()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
         fileConfig = new YamlConfiguration();
@@ -143,6 +155,11 @@ public class ConfigManager {
         return config.getList(path);
     }
 
+    public List<?> getRawList(FileConfiguration config, String path) {
+
+        return config.getList(path);
+    }
+
     public boolean addLocation(FileConfiguration config, String path, Location location) {
         config.set(String.format("%s.world", path), location.getWorld().getName());
         config.set(String.format("%s.x", path), location.getX());
@@ -150,6 +167,19 @@ public class ConfigManager {
         config.set(String.format("%s.z", path), location.getZ());
 
         return saveData(config);
+    }
+
+    public Location getRawLocation(FileConfiguration config, String path) {
+        String worldName = getString(config, String.format("%s.world", path));
+
+//        Bukkit.getServer().createWorld(new WorldCreator(worldName));
+
+        World world = Bukkit.getWorld(worldName);
+        int x = getInt(config, String.format("%s.x", path));
+        int y = getInt(config, String.format("%s.y", path));
+        int z = getInt(config, String.format("%s.z", path));
+
+        return new Location(world, x, y, z);
     }
 
     public Location getLocation(FileConfiguration config, String path) {

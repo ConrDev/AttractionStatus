@@ -37,7 +37,7 @@ messages:
   # Messages for Attraction Signs
   asigns:
     created: "Attractie Sign succesvol aangemaakt!"
-    asigns.removed: "De attractie sign is succesvol verwijderd!"
+    removed: "De attractie sign is succesvol verwijderd!"
 # Commands
 commands:
   as-help: "laat u alle commandos zien van AttractieStatus"

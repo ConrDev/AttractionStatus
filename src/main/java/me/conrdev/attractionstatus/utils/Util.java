@@ -2,16 +2,48 @@ package me.conrdev.attractionstatus.utils;
 
 import com.google.common.collect.Lists;
 import me.conrdev.attractionstatus.Core;
+import me.conrdev.attractionstatus.Objects.Attraction;
 import org.apache.commons.lang.Validate;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+import org.checkerframework.checker.units.qual.K;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class Util {
+    private static Util instance = null;
+
+    private Core plugin = null;
+
+
+    public static Util getInstance() {
+        if (instance == null) instance = new Util();
+
+        return instance;
+    }
+
+    public static boolean isNumber(String string) {
+        try {
+            Integer.parseInt(string);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public void setPlugin(Core plugin) {
+        this.plugin = plugin;
+    }
+
+    // Colors
 
     public static String color(final String msg) {
         Validate.notNull(msg, "The string can't be null!");
@@ -43,7 +75,7 @@ public class Util {
         return coll;
     }
 
-
+    // Placeholders
 
     public static String placeHolder(String string, final Map<String, String> map, final boolean ignoreCase) {
         Validate.notNull(string, "The string can't be null!");
@@ -120,7 +152,7 @@ public class Util {
         return sBuilder.append(text, start, text.length()).toString();
     }
 
-
+    // Messages
 
     public static void msg(final CommandSender target, final String message) {
         Validate.notNull(target, "The target can't be null!");
@@ -161,5 +193,31 @@ public class Util {
     public static void msg(final CommandSender target, final List<String> collection, final Map<String, String> map,
                            final boolean ignoreCase) {
         msg(target, placeHolder(collection, map, ignoreCase));
+    }
+
+    // Player
+
+    public Location parseLocation(UUID playerUUID, String string) {
+        Player player = plugin.getServer().getPlayer(playerUUID);
+
+        // String to Location
+        String s2l[] = string.split(",");
+        Location location = new Location(player.getWorld(),0,0,0);
+
+        location.setX(Double.parseDouble(s2l[0]));
+        location.setY(Double.parseDouble(s2l[1]));
+        location.setZ(Double.parseDouble(s2l[2]));
+
+        return location;
+    }
+
+    public static <V> int getHighestId(Map<Integer, V> map) {
+        int highestId = 0;
+
+        for (int id : map.keySet()) {
+            if (id > highestId) highestId = id;
+        }
+
+        return highestId;
     }
 }

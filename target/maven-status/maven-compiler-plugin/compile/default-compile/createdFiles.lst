@@ -5,6 +5,7 @@ me\conrdev\attractionstatus\utils\Util.class
 me\conrdev\attractionstatus\utils\JarUtil$PathTrimmer.class
 me\conrdev\lib\gui\MenuAPI$invAction.class
 me\conrdev\attractionstatus\utils\MsgUtil.class
+me\conrdev\attractionstatus\managers\AttractionManager.class
 me\conrdev\attractionstatus\utils\JarUtil.class
 me\conrdev\attractionstatus\utils\JarUtil$CopyOption.class
 me\conrdev\attractionstatus\config\ConfigManager.class

@@ -23,14 +23,14 @@ public class Configs {
     private Core plugin = null;
 
     private static Configs instance;
-    private ConfigManager configManager;
+    private final ConfigManager configManager;
 
-    public static FileConfiguration configFile;
+//    public static FileConfiguration configFile;
     public static ArrayList<FileConfiguration> langList = new ArrayList<>();
+//    public static ArrayList<FileConfiguration> attractionList = new ArrayList<>();
 
     Configs() {
-        this.configManager = ConfigManager.getInstance();
-
+        this.configManager = plugin.getConfigManager();
     }
 
     public static Configs getInstance() {
@@ -43,8 +43,12 @@ public class Configs {
         this.plugin = plugin;
     }
 
+    // loading configs
+
+
+
     public boolean loadConfigs() {
-        Util.msg(Bukkit.getConsoleSender(), "Loading config files...");
+        Util.msg(Bukkit.getConsoleSender(), plugin.CONSOLE_PREFIX + "Loading configuration...");
 
         if (!loadConfigFile()) {
             plugin.getServer().getPluginManager().disablePlugin(plugin);
@@ -52,49 +56,108 @@ public class Configs {
         }
 
         loadLangFiles();
+        loadAttractionsFile();
+        loadZonesFile();
 
-//        configManager.getConfig("nl-NL.yml", langFolder);
-//        configManager.getConfig("en-US.yml", langFolder);
         return true;
     }
 
     private boolean loadConfigFile() {
-        configFile = configManager.getConfig("config.yml");
+        FileConfiguration configFile = getConfig();
+
         if (configFile == null) {
-            Util.msg(Bukkit.getConsoleSender(), "&bconfig.yml: &cFailed");
+            Util.msg(Bukkit.getConsoleSender(), plugin.CONSOLE_PREFIX + "config.yml: &cFailed");
+
             return false;
         }
 
-        Util.msg(Bukkit.getConsoleSender(), "&bconfig.yml: &aSuccess");
+        Util.msg(Bukkit.getConsoleSender(), plugin.CONSOLE_PREFIX + "config.yml: &aSuccess");
+
         return true;
     }
 
     private void loadLangFiles() {
         String jarFolder = "lang";
-        String langFolder = plugin.getDataFolder() + File.separator + jarFolder;
+//        String langFolder = plugin.getDataFolder() + File.separator + jarFolder;
 
-//        if (!Files.exists(Paths.get(langFolder))) {
-            try {
-                JarUtil.copyFolderFromJar(jarFolder, plugin.getDataFolder(), JarUtil.CopyOption.COPY_IF_NOT_EXIST);
-            } catch (IOException e) {
-                e.printStackTrace();
-                Util.msg(Bukkit.getConsoleSender(), "&bLoading lang files: &cFailed");
-            }
-//        }
-
-        File[] langFiles = new File(langFolder).listFiles();
-
-        for (File langFile : langFiles) {
-//            Util.msg(Bukkit.getConsoleSender(), configManager.getConfig("lang/" + langFile.getName()).toString());
-            FileConfiguration File = configManager.getConfig(langFile.getName(), langFolder);
-
-            if (File == null) {
-                Util.msg(Bukkit.getConsoleSender(), "&blang/" + langFile.getName() + ": &cFailed");
-            } else {
-                langList.add(File);
-                Util.msg(Bukkit.getConsoleSender(), "&blang/" + langFile.getName() + ": &aSuccess");
-            }
+        try {
+            JarUtil.copyFolderFromJar(jarFolder, getPluginFolder(), JarUtil.CopyOption.COPY_IF_NOT_EXIST);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Util.msg(Bukkit.getConsoleSender(), plugin.CONSOLE_PREFIX + "Loading lang files: &cFailed");
         }
 
+        File[] langFiles = new File(getLangFolder()).listFiles();
+
+        for (File langFile : langFiles) {
+            FileConfiguration File = getLang(langFile.getName());
+
+            if (File == null) {
+                Util.msg(Bukkit.getConsoleSender(), plugin.CONSOLE_PREFIX + "lang/" + langFile.getName() + ": &cFailed");
+            } else {
+                langList.add(File);
+                Util.msg(Bukkit.getConsoleSender(), plugin.CONSOLE_PREFIX + "lang/" + langFile.getName() + ": &aSuccess");
+            }
+        }
+    }
+
+    private void loadAttractionsFile() {
+        FileConfiguration attractionsFile = getAttractions();
+
+        if (attractionsFile == null) {
+            Util.msg(Bukkit.getConsoleSender(), plugin.CONSOLE_PREFIX + "data/attractions.yml: &cFailed");
+
+            return;
+        }
+
+        Util.msg(Bukkit.getConsoleSender(), plugin.CONSOLE_PREFIX + "data/attractions.yml: &aSuccess");
+    }
+
+    private void loadZonesFile() {
+        FileConfiguration zonesFile = getZones();
+
+        if (zonesFile == null) {
+            Util.msg(Bukkit.getConsoleSender(), plugin.CONSOLE_PREFIX + "data/zones.yml: &cFailed");
+
+            return;
+        }
+
+        Util.msg(Bukkit.getConsoleSender(), plugin.CONSOLE_PREFIX + "data/zones.yml: &aSuccess");
+    }
+
+    // Get configs
+
+    public FileConfiguration getConfig() {
+        return configManager.getConfig("config.yml");
+    }
+
+    public FileConfiguration getLang() {
+        return configManager.getConfig(plugin.getPluginLang(), getLangFolder());
+    }
+
+    public FileConfiguration getLang(String name) {
+        return configManager.getConfig(name, getLangFolder());
+    }
+
+    public FileConfiguration getAttractions() {
+        return configManager.getConfig("attractions.yml", getDataFolder());
+    }
+
+    public FileConfiguration getZones() {
+        return configManager.getConfig("zones.yml", getDataFolder());
+    }
+
+    // Get folders
+
+    public String getLangFolder() {
+        return getPluginFolder() + "/lang";
+    }
+
+    public String getDataFolder() {
+        return getPluginFolder() + "/data";
+    }
+
+    public File getPluginFolder() {
+        return plugin.getDataFolder();
     }
 }

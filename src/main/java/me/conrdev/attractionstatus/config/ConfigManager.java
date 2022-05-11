@@ -44,12 +44,23 @@ public class ConfigManager {
             }
         }
 
-        return createNewConfig(name);
+        return createNewConfig(name, "");
     }
 
-    private FileConfiguration createNewConfig(String name) {
+    public FileConfiguration getConfig(String name, String path) {
+        if (configs.size() > 0) {
+            for (FileConfiguration config : configs) {
+                if (config.getName().equalsIgnoreCase(name)) return config;
+            }
+        }
+
+        return createNewConfig(name, path);
+    }
+
+    private FileConfiguration createNewConfig(String name, String path) {
+        if (path.isEmpty()) path = plugin.getDataFolder().getPath();
         FileConfiguration fileConfig;
-        File configFile = new File(plugin.getDataFolder(), name);
+        File configFile = new File(path, name);
 
         if (!configFile.exists()) {
             configFile.getParentFile().mkdirs();
@@ -87,12 +98,16 @@ public class ConfigManager {
         return true;
     }
 
+    public String getRawString(FileConfiguration config, String path) {
+        return config.getString(path);
+    }
 
     public String getString(FileConfiguration config, String path) {
         if (!config.contains(path)) setData(config, path, "dummy string");
 
         return config.getString(path);
     }
+
 
     public int getInt(FileConfiguration config, String path) {
         if (!config.contains(path)) setData(config, path, 1);

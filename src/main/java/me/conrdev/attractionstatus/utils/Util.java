@@ -13,8 +13,6 @@ import java.util.stream.Collectors;
 
 public class Util {
 
-    private Core plugin;
-
     public static String color(final String msg) {
         Validate.notNull(msg, "The string can't be null!");
         

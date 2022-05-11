@@ -1,0 +1,21 @@
+# Don't change this number unless you want to reset the config file!
+Version: '${project.version}'
+
+Updater:
+  # Should this plugin be automatically updated
+  Auto: true
+  # Should you get a notification in the console if there is an update available, this wont happen if Auto is set to true
+  Notify: false
+
+# Change every AttractionStatus Settings
+AttractionStatus:
+  # Set the plugin prefix
+  Prefix: "&6[AS]"
+  # Set the language of the plugin
+  Lang: "en-US"
+
+# Change menu settings
+Menus:
+  # Main menu
+  Main:
+    Size: 27

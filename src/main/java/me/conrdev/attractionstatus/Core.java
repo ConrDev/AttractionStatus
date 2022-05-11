@@ -1,6 +1,8 @@
 package me.conrdev.attractionstatus;
 
 import com.google.common.collect.Maps;
+import me.conrdev.attractionstatus.config.ConfigManager;
+import me.conrdev.attractionstatus.config.Configs;
 import me.conrdev.attractionstatus.utils.MsgUtil;
 import me.conrdev.attractionstatus.utils.Util;
 
@@ -31,9 +33,14 @@ public final class Core extends JavaPlugin {
         plugin = this;
 
         // Loading Constructors
+        ConfigManager.getInstance().setPlugin(this);
+        Configs.getInstance().setPlugin(this);
+
 //        new Configs(this);
 
         // Loading Configs
+        boolean ConfigsLoaded = Configs.getInstance().loadConfigs();
+
         // TODO: Load.AllFiles();
 
         // Loading Util
@@ -47,7 +54,7 @@ public final class Core extends JavaPlugin {
 
         // Finished
 //        Util.msg(Bukkit.getConsoleSender(), MsgUtil.BANNER.getMessages());
-        consoleBanner(1);
+        if (ConfigsLoaded) consoleBanner(1);
     }
 
     @Override

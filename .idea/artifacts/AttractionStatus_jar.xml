@@ -4,6 +4,8 @@
     <root id="archive" name="AttractionStatus.jar">
       <element id="module-output" name="AttractionStatus" />
       <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/plugin.yml" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/config.yml" />
+      <element id="dir-copy" path="$PROJECT_DIR$/src/main/resources/lang" />
     </root>
   </artifact>
 </component>

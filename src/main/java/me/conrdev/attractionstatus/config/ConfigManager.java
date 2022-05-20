@@ -19,11 +19,10 @@ import java.util.List;
 
 public class ConfigManager {
     private static ConfigManager instance = null;
-
     private ArrayList<FileConfiguration> configs = new ArrayList<>();
     private ArrayList<String> configNames = new ArrayList<>();
 
-    private Core plugin = null;
+    public Core plugin = null;
 
     public static ConfigManager getInstance() {
         if (instance == null) instance = new ConfigManager();
@@ -40,7 +39,7 @@ public class ConfigManager {
         configNames.clear();
     }
 
-    public FileConfiguration getConfig(String name) {
+    public FileConfiguration getConfigFile(String name) {
         if (configs.size() > 0) {
             for (FileConfiguration config : configs) {
                 if (config.getName().equalsIgnoreCase(name)) return config;
@@ -50,7 +49,7 @@ public class ConfigManager {
         return createNewConfig(name, "");
     }
 
-    public FileConfiguration getConfig(String name, String path) {
+    public FileConfiguration getConfigFile(String name, String path) {
         if (configs.size() > 0) {
             for (FileConfiguration config : configs) {
                 if (config.getName().equalsIgnoreCase(name)) return config;

@@ -12,13 +12,15 @@ import org.bukkit.World;
 
 import java.util.*;
 
+//import sun.misc.Unsafe;
+
 public class ZoneManager {
 
     private static ZoneManager instance = null;
     private Core plugin = null;
 
-    private final ConfigManager configManager;
-    private final Configs configs;
+    private final ConfigManager configManager = Core.getConfigManager();
+    private final Configs configs = Core.getConfigs();
 
     private static final Map<Integer, Zone> zones = new HashMap<>();
 
@@ -30,11 +32,11 @@ public class ZoneManager {
 
     public void setPlugin(Core plugin) {
         this.plugin = plugin;
+//        this.configs = Core.getConfigs();
     }
 
     ZoneManager() {
-        this.configManager = plugin.getConfigManager();
-        this.configs = plugin.getConfigs();
+//        this.configManager = plugin.getConfigManager();
     }
 
     public Zone createZone(String name, World world, UUID playerUUID) {

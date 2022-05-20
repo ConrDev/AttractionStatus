@@ -1,23 +1,26 @@
 package me.conrdev.attractionstatus;
 
 import com.google.common.collect.Maps;
+import me.conrdev.attractionstatus.commands.AttractionStatusCMD;
 import me.conrdev.attractionstatus.config.ConfigManager;
 import me.conrdev.attractionstatus.config.Configs;
+import me.conrdev.attractionstatus.managers.AttractionManager;
+import me.conrdev.attractionstatus.managers.ZoneManager;
 import me.conrdev.attractionstatus.utils.MsgUtil;
 import me.conrdev.attractionstatus.utils.Util;
 
-import me.conrdev.lib.gui.MenuAPI;
+import me.conrdev.lib.gui.listeners.MenuListeners;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.util.Map;
+import java.util.Objects;
 
-public final class Core extends JavaPlugin {
+public class Core extends JavaPlugin {
 
     private static Core plugin;
 
@@ -25,8 +28,8 @@ public final class Core extends JavaPlugin {
     private static Configs configs;
     private Util util;
 
-    public YamlConfiguration lang;
-    public File langFile;
+    private static AttractionManager attractionManager;
+    private static ZoneManager zoneManager;
 
     private String LANG;
 
@@ -46,13 +49,8 @@ public final class Core extends JavaPlugin {
         // Loading Constructors
         setConfigManager();
         setConfigs();
-//        ConfigManager.getInstance().setPlugin(this);
-//        ConfigManager configManager = ConfigManager.getInstance();
-
-//        Configs.getInstance().setPlugin(this);
-//        Configs configs = Configs.getInstance();
-
-//        new Configs(this);
+        setAttractionManager();
+        setZoneManager();
 
         // Loading Configs
         boolean ConfigsLoaded = configs.loadConfigs();
@@ -60,15 +58,17 @@ public final class Core extends JavaPlugin {
         setPluginLang(configManager.getString(configs.getConfig(), "AttractionStatus.Lang"));
         setPrefix(configManager.getString(configs.getConfig(), "AttractionStatus.Prefix"));
 
+        attractionManager.loadAttractions();
+        zoneManager.loadZones();
+
         // TODO: Load.AllFiles();
 
-        // Loading Util
-//        util = new Util(this);
-
         // Loading Commands
+        Objects.requireNonNull(getCommand("attractionstatus")).setExecutor(new AttractionStatusCMD());
         // TODO
 
-        // Loading Folders
+        // Loading Events
+        pm.registerEvents(new MenuListeners(), this);
         // TODO
 
         // Finished
@@ -132,5 +132,23 @@ public final class Core extends JavaPlugin {
     private void setConfigs() {
         configs = Configs.getInstance();
         configs.setPlugin(this);
+    }
+
+    private void setAttractionManager() {
+        attractionManager = AttractionManager.getInstance();
+        attractionManager.setPlugin(this);
+    }
+
+    private void setZoneManager() {
+        zoneManager = ZoneManager.getInstance();
+        zoneManager.setPlugin(this);
+    }
+
+    public AttractionManager getAttractionManager() {
+        return attractionManager;
+    }
+
+    public ZoneManager getZoneManager() {
+        return zoneManager;
     }
 }

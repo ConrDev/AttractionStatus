@@ -23,14 +23,14 @@ public class Configs {
     private Core plugin = null;
 
     private static Configs instance;
-    private final ConfigManager configManager;
+    private ConfigManager configManager;
 
 //    public static FileConfiguration configFile;
-    public static ArrayList<FileConfiguration> langList = new ArrayList<>();
+    public static ArrayList<FileConfiguration> langList = new ArrayList<FileConfiguration>();
 //    public static ArrayList<FileConfiguration> attractionList = new ArrayList<>();
 
     Configs() {
-        this.configManager = plugin.getConfigManager();
+        this.configManager = Core.getConfigManager();
     }
 
     public static Configs getInstance() {
@@ -128,23 +128,23 @@ public class Configs {
     // Get configs
 
     public FileConfiguration getConfig() {
-        return configManager.getConfig("config.yml");
+        return configManager.getConfigFile("config.yml");
     }
 
     public FileConfiguration getLang() {
-        return configManager.getConfig(plugin.getPluginLang(), getLangFolder());
+        return configManager.getConfigFile(plugin.getPluginLang(), getLangFolder());
     }
 
     public FileConfiguration getLang(String name) {
-        return configManager.getConfig(name, getLangFolder());
+        return configManager.getConfigFile(name, getLangFolder());
     }
 
     public FileConfiguration getAttractions() {
-        return configManager.getConfig("attractions.yml", getDataFolder());
+        return configManager.getConfigFile("attractions.yml", getDataFolder());
     }
 
     public FileConfiguration getZones() {
-        return configManager.getConfig("zones.yml", getDataFolder());
+        return configManager.getConfigFile("zones.yml", getDataFolder());
     }
 
     // Get folders

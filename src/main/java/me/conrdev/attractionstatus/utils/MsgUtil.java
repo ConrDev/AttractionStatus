@@ -17,12 +17,12 @@ public enum MsgUtil {
             " "
     ),
 
-    NOPERM(Core.getConfigManager().getString(Core.getConfigs().getLang(), "errors.no-permissions")),
-    NOTPLR(Core.getConfigManager().getString(Core.getConfigs().getLang(), "errors.player-only")),
-    CMDNF(Core.getConfigManager().getString(Core.getConfigs().getLang(), "errors.command-not-found")),
-    DEXISTS(Core.getConfigManager().getString(Core.getConfigs().getLang(), "errors.dont-exists")),
-    EXISTS(Core.getConfigManager().getString(Core.getConfigs().getLang(), "errors.exists")),
-    WRONGCMD(Core.getConfigManager().getString(Core.getConfigs().getLang(), "errors.wrong-command")),
+    NOPERM(Core.getConfigManager().getRawString(Core.getConfigs().getLang(), "errors.no-permissions")),
+    NOTPLR(Core.getConfigManager().getRawString(Core.getConfigs().getLang(), "errors.player-only")),
+    CMDNF(Core.getConfigManager().getRawString(Core.getConfigs().getLang(), "errors.command-not-found")),
+    DEXISTS(Core.getConfigManager().getRawString(Core.getConfigs().getLang(), "errors.dont-exists")),
+    EXISTS(Core.getConfigManager().getRawString(Core.getConfigs().getLang(), "errors.exists")),
+    WRONGCMD(Core.getConfigManager().getRawString(Core.getConfigs().getLang(), "errors.wrong-command")),
     NOATTRACTIONS(Core.getConfigManager().getString(Core.getConfigs().getLang(), "errors.no-attractions")),
     NOZONES(Core.getConfigManager().getString(Core.getConfigs().getLang(), "errors.no-zones")),
 

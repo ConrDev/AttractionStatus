@@ -199,7 +199,7 @@ public abstract class MenuAPI {
 		return inv;
 	}
 	
-	public  int getSize() {
+	public int getSize() {
 		return size;
 	}
 }

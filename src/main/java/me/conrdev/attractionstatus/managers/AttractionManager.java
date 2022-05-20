@@ -17,10 +17,10 @@ public class AttractionManager {
     private static AttractionManager instance = null;
     private Core plugin = null;
 
-    private final ConfigManager configManager;
-    private final Configs configs;
+    private final ConfigManager configManager = Core.getConfigManager();
+    private final Configs configs = Core.getConfigs();
 
-    private static final Map<Integer, Attraction> attractions = new HashMap<>();
+    private static final Map<Integer, Attraction> attractions = new HashMap<Integer, Attraction>();
 
     public static AttractionManager getInstance() {
         if (instance == null) instance = new AttractionManager();
@@ -33,8 +33,8 @@ public class AttractionManager {
     }
 
     AttractionManager() {
-        this.configManager = plugin.getConfigManager();
-        this.configs = plugin.getConfigs();
+//        this.configManager = plugin.getConfigManager();
+//        this.configs = plugin.getConfigs();
     }
 
     public Attraction createAttraction(String name, String status, Location location, String zoneName, UUID playerUUID) {

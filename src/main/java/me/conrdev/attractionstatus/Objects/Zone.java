@@ -14,7 +14,7 @@ public class Zone {
 
     private World world;
 
-    private List<Attraction> attractions;
+    private final List<Attraction> attractions;
     private UUID owner;
 
     public Zone(int id, String name, World world, UUID owner) {

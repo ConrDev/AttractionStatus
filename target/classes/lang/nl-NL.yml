@@ -3,29 +3,40 @@ errors:
   no-permissions: "&cSorry, u hebt geen permissie om dit commando uit te voeren!"
   player-only: "&cDit commando kan niet gebruikt worden in de Console!"
   command-not-found: "&cCommando niet gevonden!"
-  dexist: "bestaat niet!"
+  dont-exists: "bestaat niet!"
   exists: "bestaat al!"
   wrong-command: "Dit commando is fout! u moet dit in typen:"
+  no-attractions:
+      - "Er zijn geen Attracties gevonden!"
+      - "Misschien moet u er een paar maken ;)"
+  no-zones:
+      - "Er zijn geen Zones gevonden!"
+      - "Misschien moet u er een paar maken ;)"
 # Messages
 messages:
-  succes-tp: "u bent geteleporteerd naard"
-  succes-removed: "is succesfully verwijderd!"
-  succes-created: "is succesfully aangemaakt!"
-  zone-changed: "Zone is veranderd naar"
-  status-changed: "Status is veranderd naar"
+  succes-tp: "u bent geteleporteerd naar %object%"
+  succes-removed: "%object% is succesvol verwijderd!"
+  succes-created: "%object% is succesvol aangemaakt!"
+  succes-loaded: "%object% is succesvol geladen!"
+  zone-changed: "Zone is veranderd naar %zone%"
+  status-changed: "Status is veranderd naar %status%"
   # Messages for Attractions
   attraction:
+    loading-all: "Attracties aan het inladen...";
     # Messages for AttractionData
     data:
-      creating: "Attractie data maken voor"
-      loading: "Attractie data laden voor"
-      saving: "Attractie data opslaan voor"
-    not-found: "De attractie kon niet gevonden worden"
+      creating: "Attractie data maken voor %attraction%"
+      loading: "Attractie data laden voor %attraction%"
+      saving: "Attractie data opslaan voor %attraction%"
+    not-found: "De %attraction% attractie kon niet gevonden worden"
   # Messages for ZoneData
   zone:
-    zonedata-creating: "Zone data maken voor"
-    zonedata-loading: "Zone data laden voor"
-    zonedata-saving: "Zone data opslaan voor"
+    loading-all: "Zones aan het inladen..."
+    # Messages for ZoneData
+    data:
+      creating: "Zone data maken voor %zone%"
+      zonedata-loading: "Zone data laden voor %zone%"
+      zonedata-saving: "Zone data opslaan voor %zone%"
   # Messages for Variables
   variables:
     name: "Name variable toevoegen aan"
@@ -36,8 +47,8 @@ messages:
     attraction: "Attraction variable toevoegen aan"
   # Messages for Attraction Signs
   asigns:
-    created: "Attractie Sign succesvol aangemaakt!"
-    removed: "De attractie sign is succesvol verwijderd!"
+    created: "Attractie Sign voor %attraction% succesvol aangemaakt!"
+    removed: "De attractie sign van %attraction% is succesvol verwijderd!"
 # Commands
 commands:
   as-help: "laat u alle commandos zien van AttractieStatus"
@@ -51,3 +62,9 @@ commands:
   as-list: "laat u een lijst zien van alle Attracties en Zones"
   as-msg1: "Er zijn geen Attracties gevonden!"
   as-msg2: "Misschien moet u er een paar maken ;)"
+
+# Default attraction status
+status:
+  opened: "&aGeopend"
+  maintenance: "&6Onderhoud"
+  closed: "&cGesloten"

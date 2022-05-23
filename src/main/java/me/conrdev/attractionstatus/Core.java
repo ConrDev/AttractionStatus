@@ -3,6 +3,8 @@ package me.conrdev.attractionstatus;
 import com.google.common.collect.Maps;
 import me.conrdev.attractionstatus.config.ConfigManager;
 import me.conrdev.attractionstatus.config.Configs;
+import me.conrdev.attractionstatus.managers.AttractionManager;
+import me.conrdev.attractionstatus.managers.ZoneManager;
 import me.conrdev.attractionstatus.utils.MsgUtil;
 import me.conrdev.attractionstatus.utils.Util;
 
@@ -23,6 +25,8 @@ public final class Core extends JavaPlugin {
 
     private static ConfigManager configManager;
     private static Configs configs;
+    private static AttractionManager attractionManager;
+    private static ZoneManager zoneManager;
     private Util util;
 
     public YamlConfiguration lang;
@@ -62,8 +66,9 @@ public final class Core extends JavaPlugin {
 
         // TODO: Load.AllFiles();
 
-        // Loading Util
-//        util = new Util(this);
+        // Loading Managers
+        setAttractionManager();
+        setZoneManager();
 
         // Loading Commands
         // TODO
@@ -114,6 +119,14 @@ public final class Core extends JavaPlugin {
         return configs;
     }
 
+    public static AttractionManager getAttractionManager() {
+        return attractionManager;
+    }
+
+    public static ZoneManager getZoneManager() {
+        return zoneManager;
+    }
+
     private void setPluginLang(String language) {
         this.LANG = language;
         Util.msg(plugin.getServer().getConsoleSender(),  CONSOLE_PREFIX + "Language set to: &d" + language);
@@ -132,5 +145,15 @@ public final class Core extends JavaPlugin {
     private void setConfigs() {
         configs = Configs.getInstance();
         configs.setPlugin(this);
+    }
+
+    private void setAttractionManager() {
+        attractionManager = AttractionManager.getInstance();
+        attractionManager.setPlugin(this);
+    }
+
+    private void setZoneManager() {
+        zoneManager = ZoneManager.getInstance();
+        zoneManager.setPlugin(this);
     }
 }

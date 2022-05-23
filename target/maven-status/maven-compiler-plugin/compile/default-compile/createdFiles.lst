@@ -1,7 +1,10 @@
+me\conrdev\attractionstatus\Objects\Attraction.class
+me\conrdev\attractionstatus\Objects\Zone.class
 me\conrdev\attractionstatus\Core.class
 me\conrdev\attractionstatus\config\Configs.class
 me\conrdev\lib\gui\MenuAPI.class
 me\conrdev\attractionstatus\utils\Util.class
+me\conrdev\attractionstatus\managers\ZoneManager.class
 me\conrdev\attractionstatus\utils\JarUtil$PathTrimmer.class
 me\conrdev\lib\gui\MenuAPI$invAction.class
 me\conrdev\attractionstatus\utils\MsgUtil.class

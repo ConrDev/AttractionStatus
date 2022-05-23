@@ -3,29 +3,40 @@ errors:
   no-permissions: "&cSorry, you don't have permission to run this command!"
   player-only: "&cThis command cannot be used in the Console!"
   command-not-found: "&cCommand not found!"
-  dexist: "does not exist!"
+  dont-exists: "does not exist!"
   exists: "already exists!"
   wrong-command: "This command is wrong! you need to type this in:"
+  no-attractions:
+      - "No attractions were found!"
+      - "Maybe you should make some ;)"
+  no-zones:
+      - "No zones were found!"
+      - "Maybe you should make some ;)"
 # Messages
 messages:
-  succes-tp: "you have been teleported to"
-  succes-removed: "has been successfully removed!"
-  succes-created: "has been successfully created!"
-  zone-changed: "Zone has changed to"
-  status-changed: "Status has changed to"
+  succes-tp: "you have been teleported to %object%"
+  succes-removed: "%object% has been successfully removed!"
+  succes-created: "%object% has been successfully created!"
+  succes-loaded: "%object% has been successfully loaded!"
+  zone-changed: "Zone has changed to %zone%"
+  status-changed: "Status has changed to %status%"
   # Messages for Attractions
   attraction:
+    loading-all: "Loading attractions..."
     # Messages for AttractionData
     data:
-      creating: "Creating attraction data for"
-      loading: "Loading attraction data for"
-      saving: "saving attraction data for"
-    not-found: "The attraction could not be found"
-  # Messages for ZoneData
+      creating: "Creating attraction data for%attraction% "
+      loading: "Loading attraction data for%attraction% "
+      saving: "saving attraction data for%attraction% "
+    not-found: "The %attraction% attraction could not be found"
+  # Messages for Zones
   zone:
-    zonedata-creating: "Creating zone data for"
-    zonedata-loading: "Loading zone data for"
-    zonedata-saving: "Saving zone data for"
+    loading-all: "Loading zones..."
+    # Messages for ZoneData
+    data:
+      creating: "Creating zone data for %zone%"
+      loading: "Loading zone data for %zone%"
+      saving: "Saving zone data for %zone%"
   # Messages for Variables
   variables:
     name: "add name variable to"
@@ -36,8 +47,8 @@ messages:
     attraction: "Add attraction variable to"
   # Messages for Attraction Signs
   asigns:
-    created: "Attraction Sign successfully created!"
-    removed: "The attraction sign has been removed successfully!"
+    created: "Attraction Sign for %attraction% successfully created!"
+    removed: "The attraction sign from %attraction% has been removed successfully!"
 # Commands
 commands:
   as-help: "Let's you show all the commands of AttractionStatus"
@@ -49,5 +60,9 @@ commands:
   as-removezone: "remove a Zone from the list"
   as-tp: "teleport to a Attractions in an easy way!"
   as-list: "show you a list of all Attractions and Zones"
-  as-msg1: "No attractions were found!"
-  as-msg2: "Maybe you should make some ;)"
+
+# Default attraction status
+status:
+  opened: "&aOpened"
+  maintenance: "&6Maintenance"
+  closed: "&cClosed"

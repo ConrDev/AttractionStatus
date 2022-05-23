@@ -22,7 +22,7 @@ messages:
   status-changed: "Status is veranderd naar %status%"
   # Messages for Attractions
   attraction:
-    loading-all: "Attracties aan het inladen...";
+    loading-all: "Attracties aan het inladen..."
     # Messages for AttractionData
     data:
       creating: "Attractie data maken voor %attraction%"

@@ -19,6 +19,7 @@ public class AttractionManager {
 
     private final ConfigManager configManager;
     private final Configs configs;
+    private final ZoneManager zoneManager;
 
     private static final Map<Integer, Attraction> attractions = new HashMap<>();
 
@@ -35,6 +36,7 @@ public class AttractionManager {
     AttractionManager() {
         this.configManager = plugin.getConfigManager();
         this.configs = plugin.getConfigs();
+        this.zoneManager = plugin.getZoneManager();
     }
 
     public Attraction createAttraction(String name, String status, Location location, String zoneName, UUID playerUUID) {

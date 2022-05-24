@@ -3,6 +3,8 @@ package me.conrdev.attractionstatus.utils;
 import com.google.common.collect.Lists;
 import me.conrdev.attractionstatus.Core;
 import me.conrdev.attractionstatus.Objects.Attraction;
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.ComponentBuilder;
 import org.apache.commons.lang.Validate;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -160,6 +162,24 @@ public class Util {
         if (message == null) return;
 
         target.sendMessage(color(message));
+    }
+
+    public static void msg(final CommandSender target, final BaseComponent[] message) {
+        Validate.notNull(target, "The target can't be null!");
+
+        if (message == null) return;
+
+        target.spigot().sendMessage(message);
+//        target.sendMessage(color(message));
+    }
+
+    public static void msg(final CommandSender target, final ComponentBuilder message) {
+        Validate.notNull(target, "The target can't be null!");
+
+        if (message == null) return;
+
+        target.spigot().sendMessage(message.create());
+//        target.sendMessage(color(message));
     }
 
     public static void msg(final CommandSender target, final String... array) {

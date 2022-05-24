@@ -14,10 +14,10 @@ public class Attraction {
 //    private World world;
     private Location location;
 
-    private Zone zone;
+    private String zone;
     private UUID owner;
 
-    public Attraction(int id, String name, String status, Location location, Zone zone, UUID owner) {
+    public Attraction(int id, String name, String status, Location location, String zone, UUID owner) {
         this.id = id;
         this.name = name;
         this.status = status;
@@ -35,7 +35,7 @@ public class Attraction {
         this.name = name;
     }
 
-    public void setZone(Zone zone) {
+    public void setZone(String zone) {
         this.zone = zone;
     }
 
@@ -59,7 +59,7 @@ public class Attraction {
         return this.name;
     }
 
-    public Zone getZone() {
+    public String getZone() {
         return this.zone;
     }
 
@@ -75,7 +75,7 @@ public class Attraction {
         return this.owner;
     }
 
-    public void removeZone(Zone zone) {
-        this.zone = null;
+    public void removeZone(String zone) {
+        this.zone = "";
     }
 }

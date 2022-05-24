@@ -5,13 +5,13 @@ errors:
   command-not-found: "&cCommand not found!"
   dont-exists: "does not exist!"
   exists: "already exists!"
-  wrong-command: "This command is wrong! you need to type this in:"
+  wrong-command: "This command is wrong! you need to type this in: %command%"
   no-attractions:
-      - "No attractions were found!"
-      - "Maybe you should make some ;)"
+    - "No attractions were found!"
+    - "Maybe you should make some ;)"
   no-zones:
-      - "No zones were found!"
-      - "Maybe you should make some ;)"
+    - "No zones were found!"
+    - "Maybe you should make some ;)"
 # Messages
 messages:
   succes-tp: "you have been teleported to %object%"
@@ -29,6 +29,8 @@ messages:
       loading: "Loading attraction data for%attraction% "
       saving: "saving attraction data for%attraction% "
     not-found: "The %attraction% attraction could not be found"
+    in-zone: "is standing in Zone: %zone%"
+    hover: "Click to go to %attraction%"
   # Messages for Zones
   zone:
     loading-all: "Loading zones..."
@@ -51,15 +53,22 @@ messages:
     removed: "The attraction sign from %attraction% has been removed successfully!"
 # Commands
 commands:
-  as-help: "Let's you show all the commands of AttractionStatus"
-  as-add: "add an Attraction with a status to the list"
-  as-remove: "remove an Attraction from the list"
-  as-setstatus: "change the Status of an Attraction"
-  as-addzone: "add a Zone to the list"
-  as-setzone: "change the Zone of an Attraction"
-  as-removezone: "remove a Zone from the list"
-  as-tp: "teleport to a Attractions in an easy way!"
-  as-list: "show you a list of all Attractions and Zones"
+  attractionstatus:
+    help: "Let's you show all the commands of AttractionStatus"
+    list: "Show you a list of all Attractions and Zones"
+  attractions:
+    menu: "Opens the Attractions menu"
+    help: "Let's you show all the commands for Attractions"
+    add: "Add an Attraction with a status to the list"
+    remove: "Remove an Attraction from the list"
+    setstatus: "Change the Status of an Attraction"
+    setzone: "Change the Zone of an Attraction"
+    tp: "Teleport to a Attractions in an easy way!"
+  zones:
+    menu: "Opens the Zones menu"
+    help: "Let's you show all the commands for Zones"
+    addzone: "Add a Zone to the list"
+    removezone: "Remove a Zone from the list"
 
 # Default attraction status
 status:

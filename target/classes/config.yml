@@ -1,5 +1,5 @@
 # Don't change this number unless you want to reset the config file!
-Version: '0.1.0'
+Version: '0.1.1'
 
 Updater:
   # Should this plugin be automatically updated
@@ -12,7 +12,7 @@ AttractionStatus:
   # Set the plugin prefix
   Prefix: "&6[AS]"
   # Set the language of the plugin
-  Lang: "en-US"
+  Lang: "en_US"
 
 # Change menu settings
 Menus:

@@ -4,6 +4,7 @@ import me.conrdev.attractionstatus.Core;
 import me.conrdev.attractionstatus.utils.JarUtil;
 import me.conrdev.attractionstatus.utils.Util;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -89,6 +90,7 @@ public class Configs {
 
         File[] langFiles = new File(getLangFolder()).listFiles();
 
+        assert langFiles != null;
         for (File langFile : langFiles) {
             FileConfiguration File = getLang(langFile.getName());
 
@@ -128,14 +130,22 @@ public class Configs {
     // Get configs
 
     public FileConfiguration getConfig() {
-        return configManager.getConfigFile("config.yml");
+        return configManager.getConfigFile("config.yml", getPluginFolder().getPath());
     }
 
     public FileConfiguration getLang() {
-        return configManager.getConfigFile(plugin.getPluginLang(), getLangFolder());
+//        for (FileConfiguration lang : langList) {
+//            if (lang.getName().equalsIgnoreCase(plugin.getPluginLang() + ".yml"))
+//                return lang;
+//        }
+
+        return configManager.getConfigFile(plugin.getPluginLang() + ".yml", getLangFolder());
     }
 
     public FileConfiguration getLang(String name) {
+        if (!name.contains(".yml")) name = name + ".yml";
+//        Path path = Paths.get(getLangFolder() + "/" + name);
+
         return configManager.getConfigFile(name, getLangFolder());
     }
 
@@ -150,11 +160,11 @@ public class Configs {
     // Get folders
 
     public String getLangFolder() {
-        return getPluginFolder() + "/lang";
+        return getPluginFolder().getPath() + "/lang";
     }
 
     public String getDataFolder() {
-        return getPluginFolder() + "/data";
+        return getPluginFolder().getPath() + "/data";
     }
 
     public File getPluginFolder() {

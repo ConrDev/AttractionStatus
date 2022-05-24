@@ -1,6 +1,7 @@
 package me.conrdev.attractionstatus.config;
 
 import me.conrdev.attractionstatus.Core;
+import me.conrdev.attractionstatus.utils.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -12,15 +13,14 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class ConfigManager {
     private static ConfigManager instance = null;
-    private ArrayList<FileConfiguration> configs = new ArrayList<>();
-    private ArrayList<String> configNames = new ArrayList<>();
+//    private final ArrayList<FileConfiguration> configs = new ArrayList<>();
+//    private final ArrayList<String> configNames = new ArrayList<>();
+    private final LinkedHashMap<String, FileConfiguration> configs = new LinkedHashMap<>();
 
     public Core plugin = null;
 
@@ -36,13 +36,17 @@ public class ConfigManager {
 
     public void reloadConfigs() {
         configs.clear();
-        configNames.clear();
+//        configNames.clear();
+    }
+
+    public void showConfigs() {
+        Util.msg(Bukkit.getConsoleSender(), plugin.CONSOLE_PREFIX + configs.keySet());
     }
 
     public FileConfiguration getConfigFile(String name) {
         if (configs.size() > 0) {
-            for (FileConfiguration config : configs) {
-                if (config.getName().equalsIgnoreCase(name)) return config;
+            for (Map.Entry<String, FileConfiguration> config : configs.entrySet()) {
+                if (config.getKey().equalsIgnoreCase(name)) return config.getValue();
             }
         }
 
@@ -51,9 +55,13 @@ public class ConfigManager {
 
     public FileConfiguration getConfigFile(String name, String path) {
         if (configs.size() > 0) {
-            for (FileConfiguration config : configs) {
-                if (config.getName().equalsIgnoreCase(name)) return config;
+//            for (FileConfiguration config : configs) {
+//                if (config.getName().equalsIgnoreCase(name)) return config;
+//            }
+            for (Map.Entry<String, FileConfiguration> config : configs.entrySet()) {
+                if (config.getKey().equalsIgnoreCase(name)) return config.getValue();
             }
+
         }
 
         return createNewConfig(name, path);
@@ -63,6 +71,7 @@ public class ConfigManager {
         if (path.isEmpty()) path = plugin.getDataFolder().getPath();
         FileConfiguration fileConfig;
         File configFile = new File(path, name);
+//        Util.msg(Bukkit.getConsoleSender(), plugin.CONSOLE_PREFIX + configFile.getPath());
 
         if (!configFile.exists()) {
             configFile.getParentFile().mkdirs();
@@ -82,8 +91,9 @@ public class ConfigManager {
 
         try {
             fileConfig.load(configFile);
-            configs.add(fileConfig);
-            configNames.add(name);
+            configs.put(path + "/" + name, fileConfig);
+//            configs.add(fileConfig);
+//            configNames.add(name);
 
             return fileConfig;
         } catch (IOException | InvalidConfigurationException e) {
@@ -101,7 +111,11 @@ public class ConfigManager {
 
     public boolean saveData(FileConfiguration config) {
         try {
-            config.save(new File(plugin.getDataFolder(), configNames.get(configs.indexOf(config))));
+//            config.save(new File(plugin.getDataFolder(), configNames.get(configs.indexOf(config))));
+//            Util.msg(Bukkit.getConsoleSender(), plugin.CONSOLE_PREFIX + config.getParent());
+            for (Map.Entry<String, FileConfiguration> file : configs.entrySet()) {
+                if (file.getValue() == config) config.save(new File(file.getKey()));
+            }
         } catch (IOException e) {
             return false;
         }
@@ -119,6 +133,15 @@ public class ConfigManager {
         return config.getString(path);
     }
 
+    public String[] getRawStrings(FileConfiguration config, String path) {
+        return new String[]{config.getString(path)};
+    }
+
+    public UUID getUUID(FileConfiguration config, String path) {
+        if (!config.contains(path)) return null;
+
+        return UUID.fromString(config.getString(path));
+    }
 
     public int getInt(FileConfiguration config, String path) {
         if (!config.contains(path)) setData(config, path, 1);
@@ -159,7 +182,7 @@ public class ConfigManager {
         return config.getList(path);
     }
 
-    public boolean addLocation(FileConfiguration config, String path, Location location) {
+    public boolean setLocation(FileConfiguration config, String path, Location location) {
         config.set(String.format("%s.world", path), location.getWorld().getName());
         config.set(String.format("%s.x", path), location.getX());
         config.set(String.format("%s.y", path), location.getY());

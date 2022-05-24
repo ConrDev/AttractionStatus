@@ -1,18 +1,15 @@
-package me.conrdev.attractionstatus.commands.as;
+package me.conrdev.attractionstatus.commands.abstracts;
 
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
-import java.util.UUID;
-
-public abstract class DefaultCMD {
+public abstract class DefaultAttractionStatusCMD {
 
     private final String name;
     private final String usage;
     private final String description;
     private final String permission;
 
-    public DefaultCMD(String name, String usage, String description, String permission) {
+    public DefaultAttractionStatusCMD(String name, String usage, String description, String permission) {
         this.name = name;
         this.usage = usage;
         this.description = description;

@@ -12,7 +12,7 @@ AttractionStatus:
   # Set the plugin prefix
   Prefix: "&6[AS]"
   # Set the language of the plugin
-  Lang: "en-US"
+  Lang: "en_US"
 
 # Change menu settings
 Menus:

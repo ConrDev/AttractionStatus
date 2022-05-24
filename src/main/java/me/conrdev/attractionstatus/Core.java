@@ -2,6 +2,8 @@ package me.conrdev.attractionstatus;
 
 import com.google.common.collect.Maps;
 import me.conrdev.attractionstatus.commands.AttractionStatusCMD;
+import me.conrdev.attractionstatus.commands.AttractionsCMD;
+import me.conrdev.attractionstatus.commands.ZonesCMD;
 import me.conrdev.attractionstatus.config.ConfigManager;
 import me.conrdev.attractionstatus.config.Configs;
 import me.conrdev.attractionstatus.managers.AttractionManager;
@@ -48,9 +50,9 @@ public class Core extends JavaPlugin {
 
         // Loading Constructors
         setConfigManager();
+        configManager.reloadConfigs();
+
         setConfigs();
-        setAttractionManager();
-        setZoneManager();
 
         // Loading Configs
         boolean ConfigsLoaded = configs.loadConfigs();
@@ -58,13 +60,20 @@ public class Core extends JavaPlugin {
         setPluginLang(configManager.getString(configs.getConfig(), "AttractionStatus.Lang"));
         setPrefix(configManager.getString(configs.getConfig(), "AttractionStatus.Prefix"));
 
+        // Loading Managers
+        setAttractionManager();
+        setZoneManager();
+
         attractionManager.loadAttractions();
         zoneManager.loadZones();
 
         // TODO: Load.AllFiles();
 
         // Loading Commands
-        Objects.requireNonNull(getCommand("attractionstatus")).setExecutor(new AttractionStatusCMD());
+        getCommand("attractionstatus").setExecutor(new AttractionStatusCMD(this));
+        getCommand("attractions").setExecutor(new AttractionsCMD(this));
+        getCommand("attractions").setTabCompleter(new AttractionsCMD(this));
+        getCommand("zones").setExecutor(new ZonesCMD(this));
         // TODO
 
         // Loading Events

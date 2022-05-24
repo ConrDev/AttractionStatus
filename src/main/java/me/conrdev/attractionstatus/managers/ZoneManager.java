@@ -103,14 +103,13 @@ public class ZoneManager {
 
                 String name = configManager.getRawString(configs.getZones(), path + ".name");
                 String worldName = configManager.getRawString(configs.getZones(), path + ".world");
-                List attractions = configManager.getList(configs.getZones(), path + ".attractions");
-                String owner = configManager.getRawString(configs.getZones(), path + ".owner");
+                List<?> attractions = configManager.getList(configs.getZones(), path + ".attractions");
+                UUID playerUUID = configManager.getUUID(configs.getZones(), path + ".owner");
 
 //                Zone zone = ZoneManager.getZone(zoneName);
                 World world = Bukkit.getWorld(worldName);
-                UUID playerUUID = UUID.fromString(owner);
 
-                Zone zone = createZone(zoneId, name, world, attractions, playerUUID);
+                Zone zone = createZone(zoneId, name, world, (List<Attraction>) attractions, playerUUID);
 
                 Map<String, String> map = new HashMap<>();
                 map.put("%object%", zone.getName());
@@ -129,7 +128,7 @@ public class ZoneManager {
         data.add(configManager.setData(configs.getZones(), path + ".name", zone.getName()));
         data.add(configManager.setData(configs.getZones(), path + ".world", zone.getWorld().getName()));
         data.add(configManager.setData(configs.getZones(), path + ".attractions", zone.getAttractions()));
-        data.add(configManager.setData(configs.getZones(), path + ".owner", zone.getOwner()));
+        data.add(configManager.setData(configs.getZones(), path + ".owner", zone.getOwner().toString()));
 
         Set<Boolean> checks = new HashSet<>(data);
 
@@ -144,7 +143,7 @@ public class ZoneManager {
         String path = "zones." + id;
 
         for (Attraction attraction : zone.getAttractions()) {
-            attraction.removeZone(zone);
+            attraction.removeZone(zone.getName());
 
             AttractionManager.getInstance().saveAttraction(attraction);
         }

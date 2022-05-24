@@ -40,7 +40,7 @@ public class AttractionManager {
     public Attraction createAttraction(String name, String status, Location location, String zoneName, UUID playerUUID) {
         int id = generateId();
 
-        Attraction attraction = new Attraction(id, name, status, location, ZoneManager.getZone(zoneName), playerUUID);
+        Attraction attraction = new Attraction(id, name, status, location, zoneName, playerUUID);
 
         attractions.put(id, attraction);
 
@@ -52,7 +52,7 @@ public class AttractionManager {
     public Attraction createAttraction(int id, String name, String status, Location location, String zoneName, UUID playerUUID) {
 //        int id = generateId();
 
-        Attraction attraction = new Attraction(id, name, status, location, ZoneManager.getZone(zoneName), playerUUID);
+        Attraction attraction = new Attraction(id, name, status, location, zoneName, playerUUID);
 
         attractions.put(id, attraction);
 
@@ -79,10 +79,9 @@ public class AttractionManager {
                 String status = configManager.getRawString(configs.getAttractions(), path + ".status");
                 Location location = configManager.getRawLocation(configs.getAttractions(), path + ".location");
                 String zoneName = configManager.getRawString(configs.getAttractions(), path + ".zone");
-                String owner = configManager.getRawString(configs.getAttractions(), path + ".owner");
+                UUID playerUUID = configManager.getUUID(configs.getAttractions(), path + ".owner");
 
 //                Zone zone = ZoneManager.getZone(zoneName);
-                UUID playerUUID = UUID.fromString(owner);
 
                 Attraction attraction = createAttraction(attractionId, name, status, location, zoneName, playerUUID);
 
@@ -102,9 +101,9 @@ public class AttractionManager {
 
         data.add(configManager.setData(configs.getAttractions(), path + ".name", attraction.getName()));
         data.add(configManager.setData(configs.getAttractions(), path + ".status", attraction.getStatus()));
-        data.add(configManager.setData(configs.getAttractions(), path + ".zone", attraction.getZone().getName()));
-        data.add(configManager.setData(configs.getAttractions(), path + ".owner", attraction.getOwner()));
-        data.add(configManager.addLocation(configs.getAttractions(), path + ".location", attraction.getLocation()));
+        data.add(configManager.setData(configs.getAttractions(), path + ".zone", attraction.getZone()));
+        data.add(configManager.setData(configs.getAttractions(), path + ".owner", attraction.getOwner().toString()));
+        data.add(configManager.setLocation(configs.getAttractions(), path + ".location", attraction.getLocation()));
 
         Set<Boolean> checks = new HashSet<>(data);
 
@@ -117,10 +116,12 @@ public class AttractionManager {
     public boolean removeAttraction(Attraction attraction) {
         int id = attraction.getId();
         String path = "attractions." + id;
-        Zone zone = ZoneManager.getZone(attraction.getZone().getId());
+        Zone zone = ZoneManager.getZone(attraction.getZone());
 
-        zone.removeAttraction(attraction);
-        ZoneManager.getInstance().saveZone(zone);
+        if (zone != null) {
+            zone.removeAttraction(attraction);
+            ZoneManager.getInstance().saveZone(zone);
+        }
 
         configManager.setData(configs.getAttractions(), path, null);
         attractions.remove(id);
@@ -136,8 +137,18 @@ public class AttractionManager {
         attractions.clear();
     }
 
-    public Attraction getAttraction(int id) {
+    public static Attraction getAttraction(int id) {
         return attractions.get(id);
+    }
+
+    public static Attraction getAttraction(String attractionName) {
+        for (Attraction attraction : attractions.values()) {
+            if (Objects.equals(attraction.getName(), attractionName)) {
+                return getAttraction(attraction.getId());
+            }
+        }
+
+        return null;
     }
 
     private int generateId() {

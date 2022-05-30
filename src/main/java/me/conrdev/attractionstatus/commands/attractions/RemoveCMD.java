@@ -7,29 +7,25 @@ import me.conrdev.attractionstatus.config.ConfigManager;
 import me.conrdev.attractionstatus.config.Configs;
 import me.conrdev.attractionstatus.managers.AttractionManager;
 import me.conrdev.attractionstatus.utils.MsgUtil;
-import me.conrdev.attractionstatus.utils.TpUtil;
 import me.conrdev.attractionstatus.utils.Util;
-import org.apache.commons.lang.ArrayUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class TpCMD extends DefaultAttractionsCMD {
+public class RemoveCMD extends DefaultAttractionsCMD {
 
     private final AttractionsCMD executor;
     private final Configs configs;
     private final ConfigManager configManager;
     private final AttractionManager attractionManager;
 
-    public TpCMD(AttractionsCMD executor, Configs configs, ConfigManager configManager, AttractionManager attractionManager) {
-        super("Tp",
-                "/attractions tp <Attraction Name>",
-                configManager.getRawString(configs.getLang(), "commands.attractions.tp"),
-                "attractionstatus.attractions.tp");
-
+    public RemoveCMD(AttractionsCMD executor, Configs configs, ConfigManager configManager, AttractionManager attractionManager) {
+        super("Remove",
+                "/attractions remove <Attraction Name>",
+                configManager.getRawString(configs.getLang(), "commands.attractions.remove"),
+                "attractionstatus.attractions.remove");
         this.executor = executor;
         this.configs = configs;
         this.configManager = configManager;
@@ -38,30 +34,29 @@ public class TpCMD extends DefaultAttractionsCMD {
 
     @Override
     public void run(CommandSender sender, String[] args) {
-//        String attractionName = String.join(" ", (CharSequence[]) ArrayUtils.remove(args, 0));
-        Map<String, String> cmdMap = new HashMap<>();
-        cmdMap.put("%command%", this.getUsage());
 
         if (args.length != 2) {
-            MsgUtil.WRONGCMD.msg(sender, cmdMap, false);
+            Map<String, String> map = new HashMap<>();
+            map.put("%command%", this.getUsage());
+
+            MsgUtil.WRONGCMD.msg(sender, map, false);
             return;
         }
 
-        Attraction attraction = attractionManager.getAttraction(args[1]);
+        String attractionName = args[1];
+
+        Attraction attraction = attractionManager.getAttraction(attractionName);
+
+        Map<String, String> map = new HashMap<>();
+        map.put("%object%", attractionName);
 
         if (attraction == null) {
-            Map<String, String> map = new HashMap<>();
-            map.put("%attraction%", args[1]);
-
             MsgUtil.DONT_EXISTS.msg(sender, map, false);
             return;
         }
 
-        if (TpUtil.tp(sender, attraction.getLocation())) {
-            Map<String, String> map = new HashMap<>();
-            map.put("%object%", attraction.getName());
+        attractionManager.removeAttraction(attraction);
 
-            MsgUtil.SUCCES_TP.msg(sender, map, false);
-        }
+        MsgUtil.SUCCES_REMOVED.msg(sender, map, false);
     }
 }

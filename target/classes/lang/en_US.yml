@@ -3,9 +3,9 @@ errors:
   no-permissions: "&cSorry, you don't have permission to run this command!"
   player-only: "&cThis command cannot be used in the Console!"
   command-not-found: "&cCommand not found!"
-  dont-exists: "does not exist!"
-  exists: "already exists!"
-  wrong-command: "This command is wrong! you need to type this in: %command%"
+  dont-exists: "&e%object% &cdoes not exist!"
+  exists: "&e%object% &calready exists!"
+  wrong-command: "&cThis command is wrong! you need to type this in: &e%command%"
   no-attractions:
     - "No attractions were found!"
     - "Maybe you should make some ;)"
@@ -14,31 +14,36 @@ errors:
     - "Maybe you should make some ;)"
 # Messages
 messages:
-  succes-tp: "you have been teleported to %object%"
-  succes-removed: "%object% has been successfully removed!"
-  succes-created: "%object% has been successfully created!"
-  succes-loaded: "%object% has been successfully loaded!"
-  zone-changed: "Zone has changed to %zone%"
+  succes-tp: "you have been teleported to &e%object%"
+  succes-removed: "&e%object% &chas been successfully removed!"
+  succes-created: "&e%object% &ahas been successfully created!"
+  succes-loaded: "&e%object% &6has been successfully loaded!"
+  zone-changed: "Zone has changed to &d%zone%"
   status-changed: "Status has changed to %status%"
   # Messages for Attractions
   attraction:
     loading-all: "Loading attractions..."
     # Messages for AttractionData
     data:
-      creating: "Creating attraction data for%attraction% "
-      loading: "Loading attraction data for%attraction% "
-      saving: "saving attraction data for%attraction% "
-    not-found: "The %attraction% attraction could not be found"
-    in-zone: "is standing in Zone: %zone%"
-    hover: "Click to go to %attraction%"
+      creating: "Creating attraction data for &e%attraction% "
+      loading: "Loading attraction data for &e%attraction% "
+      saving: "saving attraction data for &e%attraction% "
+    not-found: "The &e%attraction% &rattraction could not be found"
+    in-zone: "is standing in Zone: &d%zone%"
+    hover: "Click to go to &e%attraction%"
+    no-zone: "No zone found"
+    # Messages for Attraction Signs
+    sign:
+      created: "&aAttraction Sign for &e%attraction% &asuccessfully created!"
+      removed: "&cThe attraction sign from &e%attraction% &chas been removed successfully!"
   # Messages for Zones
   zone:
     loading-all: "Loading zones..."
     # Messages for ZoneData
     data:
-      creating: "Creating zone data for %zone%"
-      loading: "Loading zone data for %zone%"
-      saving: "Saving zone data for %zone%"
+      creating: "Creating zone data for &d%zone%"
+      loading: "Loading zone data for &d%zone%"
+      saving: "Saving zone data for &d%zone%"
   # Messages for Variables
   variables:
     name: "add name variable to"
@@ -47,10 +52,6 @@ messages:
     owner: "Add owner variable to"
     icon: "Add icon variable to"
     attraction: "Add attraction variable to"
-  # Messages for Attraction Signs
-  asigns:
-    created: "Attraction Sign for %attraction% successfully created!"
-    removed: "The attraction sign from %attraction% has been removed successfully!"
 # Commands
 commands:
   attractionstatus:

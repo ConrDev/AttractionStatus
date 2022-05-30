@@ -6,6 +6,7 @@ import me.conrdev.attractionstatus.commands.AttractionsCMD;
 import me.conrdev.attractionstatus.commands.ZonesCMD;
 import me.conrdev.attractionstatus.config.ConfigManager;
 import me.conrdev.attractionstatus.config.Configs;
+import me.conrdev.attractionstatus.events.AttractionSign;
 import me.conrdev.attractionstatus.managers.AttractionManager;
 import me.conrdev.attractionstatus.managers.ZoneManager;
 import me.conrdev.attractionstatus.utils.MsgUtil;
@@ -78,6 +79,7 @@ public class Core extends JavaPlugin {
 
         // Loading Events
         pm.registerEvents(new MenuListeners(), this);
+        pm.registerEvents(new AttractionSign(), this);
         // TODO
 
         // Finished
@@ -159,5 +161,9 @@ public class Core extends JavaPlugin {
 
     public ZoneManager getZoneManager() {
         return zoneManager;
+    }
+
+    public String getPrefix() {
+        return CHAT_PREFIX;
     }
 }

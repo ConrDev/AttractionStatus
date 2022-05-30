@@ -3,9 +3,12 @@ package me.conrdev.attractionstatus.utils;
 import com.google.common.collect.Lists;
 import me.conrdev.attractionstatus.Core;
 import me.conrdev.attractionstatus.Objects.Attraction;
+import me.conrdev.attractionstatus.config.ConfigManager;
+import me.conrdev.attractionstatus.config.Configs;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import org.apache.commons.lang.Validate;
+import org.apache.commons.lang.WordUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
@@ -43,6 +46,22 @@ public class Util {
 
     public void setPlugin(Core plugin) {
         this.plugin = plugin;
+    }
+
+    public static String prefix() {
+        return color(ConfigManager.getInstance().getRawString(Configs.getInstance().getConfig(), "AttractionStatus.Prefix"));
+    }
+
+    public static boolean containsIgnoreCase(String haystack, String needle) {
+        if (haystack == null || needle == null) return false;
+
+        return (haystack.toLowerCase().contains(needle.toLowerCase()));
+    }
+
+    public static String title(String string) {
+        final char[] delimiters = { ' ', '_' };
+
+        return WordUtils.capitalizeFully(string, delimiters);
     }
 
     // Colors

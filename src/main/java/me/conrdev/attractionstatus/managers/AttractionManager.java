@@ -8,6 +8,7 @@ import me.conrdev.attractionstatus.config.Configs;
 import me.conrdev.attractionstatus.utils.MsgUtil;
 import me.conrdev.attractionstatus.utils.Util;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 
 import java.util.*;
@@ -37,6 +38,9 @@ public class AttractionManager {
 //        this.configs = plugin.getConfigs();
     }
 
+    /**
+     * Create an attraction from players location
+     */
     public Attraction createAttraction(String name, String status, Location location, String zoneName, UUID playerUUID) {
         int id = generateId();
 
@@ -49,6 +53,9 @@ public class AttractionManager {
         return attraction;
     }
 
+    /**
+     * Create an attraction from players location with ID
+     */
     public Attraction createAttraction(int id, String name, String status, Location location, String zoneName, UUID playerUUID) {
 //        int id = generateId();
 
@@ -137,13 +144,14 @@ public class AttractionManager {
         attractions.clear();
     }
 
-    public static Attraction getAttraction(int id) {
+    public Attraction getAttraction(int id) {
         return attractions.get(id);
     }
 
-    public static Attraction getAttraction(String attractionName) {
+    public Attraction getAttraction(String attractionName) {
+        attractionName = ChatColor.stripColor(attractionName);
         for (Attraction attraction : attractions.values()) {
-            if (Objects.equals(attraction.getName(), attractionName)) {
+            if (attraction.getName().equalsIgnoreCase(attractionName)) {
                 return getAttraction(attraction.getId());
             }
         }

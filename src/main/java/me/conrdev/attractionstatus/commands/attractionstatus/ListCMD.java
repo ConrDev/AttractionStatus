@@ -84,7 +84,7 @@ public class ListCMD extends DefaultAttractionStatusCMD {
                             .event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/attractions tp " + AttName))
                             .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(hoverString).create()))
                             .create())
-                    .append(Util.color("&8 - " + Zone.replace('_', ' ')));
+                    .append(new ComponentBuilder(Util.color("&8 - " + Zone.replace('_', ' '))).create());
 
             Util.msg(sender, message);
         }

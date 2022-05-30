@@ -5,10 +5,7 @@ import me.conrdev.attractionstatus.Objects.Attraction;
 import me.conrdev.attractionstatus.Objects.Zone;
 import me.conrdev.attractionstatus.commands.abstracts.DefaultAttractionStatusCMD;
 import me.conrdev.attractionstatus.commands.abstracts.DefaultAttractionsCMD;
-import me.conrdev.attractionstatus.commands.attractions.AddCMD;
-import me.conrdev.attractionstatus.commands.attractions.HelpCMD;
-import me.conrdev.attractionstatus.commands.attractions.MainCMD;
-import me.conrdev.attractionstatus.commands.attractions.TpCMD;
+import me.conrdev.attractionstatus.commands.attractions.*;
 import me.conrdev.attractionstatus.config.ConfigManager;
 import me.conrdev.attractionstatus.config.Configs;
 import me.conrdev.attractionstatus.managers.AttractionManager;
@@ -47,7 +44,8 @@ public class AttractionsCMD implements CommandExecutor, TabCompleter {
 
         commands.add(new MainCMD(this, configs, configManager));
         commands.add(new HelpCMD(this, configs, configManager));
-        commands.add(new AddCMD(this, configs, configManager));
+        commands.add(new AddCMD(this, configs, configManager, plugin.getAttractionManager()));
+        commands.add(new RemoveCMD(this, configs, configManager, plugin.getAttractionManager()));
         commands.add(new TpCMD(this, configs, configManager, plugin.getAttractionManager()));
     }
 
@@ -110,9 +108,9 @@ public class AttractionsCMD implements CommandExecutor, TabCompleter {
             zoneNames.add(zone.getName());
         }
 
-        defaultStatuses.add(configManager.getRawString(configs.getLang(), "status.opened"));
-        defaultStatuses.add(configManager.getRawString(configs.getLang(), "status.maintenance"));
-        defaultStatuses.add(configManager.getRawString(configs.getLang(), "status.closed"));
+        defaultStatuses.add(MsgUtil.OPENED.getMessage());
+        defaultStatuses.add(MsgUtil.MAINTENANCE.getMessage());
+        defaultStatuses.add(MsgUtil.CLOSED.getMessage());
 
         switch (args.length) {
             case 1:
@@ -123,6 +121,7 @@ public class AttractionsCMD implements CommandExecutor, TabCompleter {
             case 2:
                 switch (args[0].toLowerCase()) {
                     case "tp":
+                    case "remove":
                     case "setzone":
                     case "setstatus":
                         return attractionNames;

@@ -3,7 +3,7 @@ version: '0.1.1'
 main: me.conrdev.attractionstatus.Core
 api-version: 1.18
 prefix: AttractionStatus
-load: STARTUP
+load: POSTWORLD
 authors: [ ConrDev ]
 description: AttractionStatus Plugin is made for Amusement park servers.
 website: https://github.com/ConrDev

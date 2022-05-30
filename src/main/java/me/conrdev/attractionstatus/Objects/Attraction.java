@@ -2,6 +2,7 @@ package me.conrdev.attractionstatus.Objects;
 
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.block.Sign;
 
 import java.util.UUID;
 
@@ -16,6 +17,8 @@ public class Attraction {
 
     private String zone;
     private UUID owner;
+
+    private Sign sign;
 
     public Attraction(int id, String name, String status, Location location, String zone, UUID owner) {
         this.id = id;

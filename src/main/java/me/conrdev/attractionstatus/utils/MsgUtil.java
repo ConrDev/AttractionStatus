@@ -20,7 +20,7 @@ public enum MsgUtil {
     NOPERM(Core.getConfigManager().getRawString(Core.getConfigs().getLang(), "errors.no-permissions")),
     NOTPLR(Core.getConfigManager().getRawString(Core.getConfigs().getLang(), "errors.player-only")),
     CMDNF(Core.getConfigManager().getRawString(Core.getConfigs().getLang(), "errors.command-not-found")),
-    DEXISTS(Core.getConfigManager().getRawString(Core.getConfigs().getLang(), "errors.dont-exists")),
+    DONT_EXISTS(Core.getConfigManager().getRawString(Core.getConfigs().getLang(), "errors.dont-exists")),
     EXISTS(Core.getConfigManager().getRawString(Core.getConfigs().getLang(), "errors.exists")),
     WRONGCMD(Core.getConfigManager().getRawString(Core.getConfigs().getLang(), "errors.wrong-command")),
     NOATTRACTIONS(Core.getConfigManager().getRawStrings(Core.getConfigs().getLang(), "errors.no-attractions")),
@@ -46,6 +46,10 @@ public enum MsgUtil {
     ATTRACTION_NOT_FOUND(Core.getConfigManager().getRawString(Core.getConfigs().getLang(), "messages.attraction.not-found")),
     ATTRACTION_IN_ZONE(Core.getConfigManager().getRawString(Core.getConfigs().getLang(), "messages.attraction.in-zone")),
     ATTRACTION_HOVER(Core.getConfigManager().getRawString(Core.getConfigs().getLang(), "messages.attraction.hover")),
+    ATTRACTION_NO_ZONE(Core.getConfigManager().getRawString(Core.getConfigs().getLang(), "messages.attraction.no-zone")),
+
+    ATTRACTION_SIGN_CREATED(Core.getConfigManager().getRawString(Core.getConfigs().getLang(), "messages.attraction.sign.created")),
+    ATTRACTION_SIGN_REMOVED(Core.getConfigManager().getRawString(Core.getConfigs().getLang(), "messages.attraction.sign.removed")),
 
     ZONES_LOADING(Core.getConfigManager().getRawString(Core.getConfigs().getLang(), "messages.zone.loading-all")),
 

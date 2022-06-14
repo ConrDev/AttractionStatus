@@ -1,9 +1,8 @@
 package me.conrdev.attractionstatus.commands;
 
 import me.conrdev.attractionstatus.Core;
-import me.conrdev.attractionstatus.Objects.Attraction;
-import me.conrdev.attractionstatus.Objects.Zone;
-import me.conrdev.attractionstatus.commands.abstracts.DefaultAttractionStatusCMD;
+import me.conrdev.attractionstatus.objects.Attraction;
+import me.conrdev.attractionstatus.objects.Zone;
 import me.conrdev.attractionstatus.commands.abstracts.DefaultAttractionsCMD;
 import me.conrdev.attractionstatus.commands.attractions.*;
 import me.conrdev.attractionstatus.config.ConfigManager;
@@ -46,6 +45,7 @@ public class AttractionsCMD implements CommandExecutor, TabCompleter {
         commands.add(new HelpCMD(this, configs, configManager));
         commands.add(new AddCMD(this, configs, configManager, plugin.getAttractionManager()));
         commands.add(new RemoveCMD(this, configs, configManager, plugin.getAttractionManager()));
+        commands.add(new StatusCMD(this, configs, configManager, plugin.getAttractionManager()));
         commands.add(new TpCMD(this, configs, configManager, plugin.getAttractionManager()));
     }
 
@@ -71,13 +71,12 @@ public class AttractionsCMD implements CommandExecutor, TabCompleter {
             return false;
         }
 
-        if (!(sender instanceof Player)) {
-            MsgUtil.NOTPLR.msg(sender);
-            return false;
-        }
-
         for (DefaultAttractionsCMD cmd : commands) {
             if (!cmd.getName().equalsIgnoreCase(args[0])) continue;
+            if (!cmd.canUseInConsole && !(sender instanceof Player)) {
+                MsgUtil.NOTPLR.msg(sender);
+                return false;
+            }
             if (!cmd.getPermission().isEmpty() && !sender.hasPermission(cmd.getPermission())) {
                 MsgUtil.NOPERM.msg(sender);
                 return false;
@@ -98,26 +97,39 @@ public class AttractionsCMD implements CommandExecutor, TabCompleter {
         List<String> attractionNames = new ArrayList<>();
         List<String> zoneNames = new ArrayList<>();
         List<String> defaultStatuses = new ArrayList<>();
-
+        List<String> commandUsages = new ArrayList<>();
 
         for(Attraction attraction : attractionsManager.getAttractions().values()) {
-            attractionNames.add(attraction.getName());
+            attractionNames.add(Util.stripColor(attraction.getName()));
         }
 
         for(Zone zone : zoneManager.getZones().values()) {
             zoneNames.add(zone.getName());
         }
 
-        defaultStatuses.add(MsgUtil.OPENED.getMessage());
-        defaultStatuses.add(MsgUtil.MAINTENANCE.getMessage());
-        defaultStatuses.add(MsgUtil.CLOSED.getMessage());
+        for(DefaultAttractionsCMD cmd : commands) {
+            String cmdName = cmd.getName().toLowerCase();
+            if (cmdName.equalsIgnoreCase("Main")) continue;
+
+            commandUsages.add(cmdName);
+        }
+
+        for (StatusList status : StatusList.values()) {
+            defaultStatuses.add(status.name().toLowerCase());
+        }
+//        defaultStatuses.add(MsgUtil.OPENED.getMessage());
+//        defaultStatuses.add(MsgUtil.MAINTENANCE.getMessage());
+//        defaultStatuses.add(MsgUtil.CLOSED.getMessage());
 
         switch (args.length) {
             case 1:
                 switch (args[0].toLowerCase()) {
                     case "add":
                         return null;
+                    default:
+                        return commandUsages;
                 }
+
             case 2:
                 switch (args[0].toLowerCase()) {
                     case "tp":
@@ -126,6 +138,7 @@ public class AttractionsCMD implements CommandExecutor, TabCompleter {
                     case "setstatus":
                         return attractionNames;
                 }
+
             case 3:
                 switch (args[0].toLowerCase()) {
                     case "setzone":
@@ -133,35 +146,12 @@ public class AttractionsCMD implements CommandExecutor, TabCompleter {
                     case "setstatus":
                         return defaultStatuses;
                 }
+
+            default:
+                return null;
         }
-//        if (args[0] == "add") return null;
-//
-//        if (args[0] == "tp") {
-//            if (args.length == 1) return attractionNames;
-//            return null;
-//        }
-//
-//        if (args[0] == "setzone") {
-//            if (args.length == 1) {
-//                return attractionNames;
-//            } else if (args.length == 2) {
-//                return zoneNames;
-//            }
-//            return null;
-//        }
-//
-//        if (args[0] == "setstatus") {
-//            if (args.length == 1) {
-//                return attractionNames;
-//            } else if (args.length == 2) {
-//                return defaultStatuses;
-//            }
-//            return null;
-//        }
-//
-        return null;
     }
-//
+
     public Set<DefaultAttractionsCMD> getCommands() { return commands; }
 
 

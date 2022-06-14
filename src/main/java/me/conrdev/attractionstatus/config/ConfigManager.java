@@ -149,6 +149,21 @@ public class ConfigManager {
         return config.getInt(path);
     }
 
+    public int getRawInt(FileConfiguration config, String path) {
+        return config.getInt(path);
+    }
+
+    public float getFloat(FileConfiguration config, String path) {
+        if (!config.contains(path)) setData(config, path, 1);
+
+        return (float) config.getDouble(path);
+    }
+
+    public float getRawFloat(FileConfiguration config, String path) {
+
+        return (float) config.getDouble(path);
+    }
+
     public double getDouble(FileConfiguration config, String path) {
         if (!config.contains(path)) setData(config, path, 1.0);
 
@@ -187,6 +202,8 @@ public class ConfigManager {
         config.set(String.format("%s.x", path), location.getX());
         config.set(String.format("%s.y", path), location.getY());
         config.set(String.format("%s.z", path), location.getZ());
+        config.set(String.format("%s.yaw", path), location.getYaw());
+        config.set(String.format("%s.pitch", path), location.getPitch());
 
         return saveData(config);
     }
@@ -197,11 +214,13 @@ public class ConfigManager {
 //        Bukkit.getServer().createWorld(new WorldCreator(worldName));
 
         World world = Bukkit.getWorld(worldName);
-        int x = getInt(config, String.format("%s.x", path));
-        int y = getInt(config, String.format("%s.y", path));
-        int z = getInt(config, String.format("%s.z", path));
+        double x = getDouble(config, String.format("%s.x", path));
+        double y = getDouble(config, String.format("%s.y", path));
+        double z = getDouble(config, String.format("%s.z", path));
+        float yaw = getRawFloat(config, String.format("%s.yaw", path));
+        float pitch = getRawFloat(config, String.format("%s.pitch", path));
 
-        return new Location(world, x, y, z);
+        return new Location(world, x, y, z, yaw, pitch);
     }
 
     public Location getLocation(FileConfiguration config, String path) {

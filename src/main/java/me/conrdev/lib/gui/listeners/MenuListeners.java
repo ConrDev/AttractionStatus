@@ -1,6 +1,6 @@
 package me.conrdev.lib.gui.listeners;
 
-import me.conrdev.lib.gui.MenuAPI;
+import me.conrdev.lib.gui.MenuAPI_OLD;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -22,12 +22,12 @@ public class MenuListeners implements Listener {
 		Player p = (Player) e.getWhoClicked();
 		UUID pUUID = p.getUniqueId();
 		
-		UUID invUUID = MenuAPI.openInv.get(pUUID);
+		UUID invUUID = MenuAPI_OLD.openInv.get(pUUID);
 		if (invUUID != null) {
 			e.setCancelled(true);
 			
-			MenuAPI menu = MenuAPI.getInvById().get(invUUID);
-			MenuAPI.invAction action = menu.getActions().get(e.getSlot());
+			MenuAPI_OLD menu = MenuAPI_OLD.getInvById().get(invUUID);
+			MenuAPI_OLD.invAction action = menu.getActions().get(e.getSlot());
 			
 			if (action != null) {
 				action.click(p);
@@ -40,7 +40,7 @@ public class MenuListeners implements Listener {
 		Player p = (Player) e.getPlayer();
 		UUID pUUID = p.getUniqueId();
 		
-		MenuAPI.openInv.remove(pUUID);
+		MenuAPI_OLD.openInv.remove(pUUID);
 	}
 	
 	@EventHandler
@@ -48,6 +48,6 @@ public class MenuListeners implements Listener {
 		Player p = e.getPlayer();
 		UUID pUUID = p.getUniqueId();
 		
-		MenuAPI.openInv.remove(pUUID);
+		MenuAPI_OLD.openInv.remove(pUUID);
 	}
 }

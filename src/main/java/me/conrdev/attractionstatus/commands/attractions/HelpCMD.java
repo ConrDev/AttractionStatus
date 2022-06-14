@@ -20,7 +20,8 @@ public class HelpCMD extends DefaultAttractionsCMD {
         super("Help",
                 "/attractions help",
                 configManager.getRawString(configs.getLang(), "commands.attractions.help"),
-                "attractionstatus.attractions.help");
+                "attractionstatus.attractions.help",
+                false);
 
         this.executor = executor;
         this.configs = configs;

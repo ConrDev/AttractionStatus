@@ -1,6 +1,5 @@
-package me.conrdev.attractionstatus.Objects;
+package me.conrdev.attractionstatus.objects;
 
-import org.bukkit.Location;
 import org.bukkit.World;
 
 import java.util.ArrayList;

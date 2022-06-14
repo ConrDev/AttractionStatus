@@ -5,7 +5,9 @@ errors:
   command-not-found: "&cCommando niet gevonden!"
   dont-exists: "&e%object% &cbestaat niet!"
   exists: "&e%object% &cbestaat al!"
-  wrong-command: "Dit commando is fout! u moet dit in typen: &e%command%"
+  wrong-command: "Dit commando is fout! U moet dit in typen: &e%command%"
+  wrong-status: "De gegeven status is fout! U moet kiezen uit: &e%list%"
+  not-owner: "&cSorry, u bent niet de eigenaar van dit attractie bordje!"
   no-attractions:
     - "Er zijn geen Attracties gevonden!"
     - "Misschien moet u er een paar maken ;)"
@@ -32,10 +34,6 @@ messages:
     in-zone: "staat in Zone: &d%zone%"
     hover: "Klik om naar &e%attraction% &rte gaan"
     no-zone: "Geen zone gevonden"
-    # Messages for Attraction Signs
-    sign:
-      created: "Attractie Sign voor &e%attraction% succesvol aangemaakt!"
-      removed: "De attractie sign van &e%attraction% is succesvol verwijderd!"
   # Messages for ZoneData
   zone:
     loading-all: "Zones aan het inladen..."
@@ -44,6 +42,11 @@ messages:
       creating: "Zone data maken voor &d%zone%"
       zonedata-loading: "Zone data laden voor &d%zone%"
       zonedata-saving: "Zone data opslaan voor &d%zone%"
+  # Messages for Attraction Signs
+  sign:
+    loading-all: "Bordjes aan het inladen..."
+    created: "Attractie Sign voor &e%attraction% succesvol aangemaakt!"
+    removed: "De attractie sign van &e%attraction% is succesvol verwijderd!"
   # Messages for Variables
   variables:
     name: "Name variable toevoegen aan"
@@ -71,8 +74,15 @@ commands:
     addzone: "Voeg een Zone toe aan de lijst"
     removezone: "Verwijder een Zone van de lijst"
 
-# Default attraction status
+# Default attraction status (you can't add more)
 status:
   opened: "&aGeopend"
   maintenance: "&6Onderhoud"
   closed: "&cGesloten"
+
+# Default menu
+menus:
+  attractions:
+    title: "Attracties"
+  zones:
+    title: "Zones"

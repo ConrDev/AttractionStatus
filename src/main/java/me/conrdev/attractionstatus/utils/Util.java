@@ -2,7 +2,6 @@ package me.conrdev.attractionstatus.utils;
 
 import com.google.common.collect.Lists;
 import me.conrdev.attractionstatus.Core;
-import me.conrdev.attractionstatus.Objects.Attraction;
 import me.conrdev.attractionstatus.config.ConfigManager;
 import me.conrdev.attractionstatus.config.Configs;
 import net.md_5.bungee.api.chat.BaseComponent;
@@ -11,11 +10,10 @@ import org.apache.commons.lang.Validate;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.block.BlockFace;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.checkerframework.checker.units.qual.K;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -66,10 +64,16 @@ public class Util {
 
     // Colors
 
-    public static String color(final String msg) {
-        Validate.notNull(msg, "The string can't be null!");
-        
-        return ChatColor.translateAlternateColorCodes('&', msg);
+    public static String color(final String string) {
+        Validate.notNull(string, "The string can't be null!");
+
+        return ChatColor.translateAlternateColorCodes('&', string);
+    }
+
+    public static String stripColor(final String string) {
+        Validate.notNull(string, "The string can't be null!");
+
+        return ChatColor.stripColor(ChatColor.translateAlternateColorCodes('&', string));
     }
 
     public static String[] color(final String[] array) {
@@ -155,8 +159,6 @@ public class Util {
         int increase = replacement.length() - rLength;
 
         increase = (Math.max(increase, 0)) * 16;
-//        increase = increase < 0 ? 0 : increase;
-//        increase *= 16;
 
         final StringBuilder sBuilder = new StringBuilder(text.length() + increase);
 
@@ -421,6 +423,28 @@ public class Util {
                 return getLength();
             }
             return length + 1;
+        }
+    }
+
+    public static float faceToYaw(BlockFace face) {
+         switch(face) {
+             case NORTH:            return 180f;
+             case NORTH_EAST:       return 225f;
+             case NORTH_WEST:       return 135f;
+             case NORTH_NORTH_EAST: return 202.5f;
+             case NORTH_NORTH_WEST: return 157.5f;
+             case EAST:             return 270f;
+             case EAST_NORTH_EAST:  return 247.5f;
+             case EAST_SOUTH_EAST:  return 292.5f;
+             case SOUTH_EAST:       return 315f;
+             case SOUTH_WEST:       return 45f;
+             case SOUTH_SOUTH_EAST: return 337.5f;
+             case SOUTH_SOUTH_WEST: return 22.5f;
+             case WEST:             return 90f;
+             case WEST_NORTH_WEST:  return 112.5f;
+             case WEST_SOUTH_WEST:  return 67.5f;
+             case SOUTH:
+                default: return 0f;
         }
     }
 }

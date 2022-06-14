@@ -59,6 +59,7 @@ public class Configs {
         loadLangFiles();
         loadAttractionsFile();
         loadZonesFile();
+        loadSignsFile();
 
         return true;
     }
@@ -127,6 +128,18 @@ public class Configs {
         Util.msg(Bukkit.getConsoleSender(), plugin.CONSOLE_PREFIX + "data/zones.yml: &aSuccess");
     }
 
+    private void loadSignsFile() {
+        FileConfiguration signsFile = getSigns();
+
+        if (signsFile == null) {
+            Util.msg(Bukkit.getConsoleSender(), plugin.CONSOLE_PREFIX + "data/signs.yml: &cFailed");
+
+            return;
+        }
+
+        Util.msg(Bukkit.getConsoleSender(), plugin.CONSOLE_PREFIX + "data/signs.yml: &aSuccess");
+    }
+
     // Get configs
 
     public FileConfiguration getConfig() {
@@ -155,6 +168,10 @@ public class Configs {
 
     public FileConfiguration getZones() {
         return configManager.getConfigFile("zones.yml", getDataFolder());
+    }
+
+    public FileConfiguration getSigns() {
+        return configManager.getConfigFile("signs.yml", getDataFolder());
     }
 
     // Get folders

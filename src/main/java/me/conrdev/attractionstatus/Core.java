@@ -7,11 +7,15 @@ import me.conrdev.attractionstatus.commands.ZonesCMD;
 import me.conrdev.attractionstatus.config.ConfigManager;
 import me.conrdev.attractionstatus.config.Configs;
 import me.conrdev.attractionstatus.events.AttractionSign;
+import me.conrdev.attractionstatus.events.ScrollMenuEvents;
 import me.conrdev.attractionstatus.managers.AttractionManager;
+import me.conrdev.attractionstatus.managers.SignsManager;
 import me.conrdev.attractionstatus.managers.ZoneManager;
+import me.conrdev.attractionstatus.utils.EffectUtil;
 import me.conrdev.attractionstatus.utils.MsgUtil;
 import me.conrdev.attractionstatus.utils.Util;
 
+import me.conrdev.lib.gui.InvAPI;
 import me.conrdev.lib.gui.listeners.MenuListeners;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -33,6 +37,7 @@ public class Core extends JavaPlugin {
 
     private static AttractionManager attractionManager;
     private static ZoneManager zoneManager;
+    private static SignsManager signsManager;
 
     private String LANG;
 
@@ -64,9 +69,11 @@ public class Core extends JavaPlugin {
         // Loading Managers
         setAttractionManager();
         setZoneManager();
+        setSignsManager();
 
-        attractionManager.loadAttractions();
-        zoneManager.loadZones();
+        getAttractionManager().loadAttractions();
+        getZoneManager().loadZones();
+        getSignsManager().loadSigns();
 
         // TODO: Load.AllFiles();
 
@@ -75,10 +82,11 @@ public class Core extends JavaPlugin {
         getCommand("attractions").setExecutor(new AttractionsCMD(this));
         getCommand("attractions").setTabCompleter(new AttractionsCMD(this));
         getCommand("zones").setExecutor(new ZonesCMD(this));
-        // TODO
 
         // Loading Events
-        pm.registerEvents(new MenuListeners(), this);
+        pm.registerEvents(new ScrollMenuEvents(), this);
+//        pm.registerEvents(new MenuListeners(), this);
+        pm.registerEvents(InvAPI.getListener(), this);
         pm.registerEvents(new AttractionSign(), this);
         // TODO
 
@@ -90,6 +98,10 @@ public class Core extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
+        EffectUtil.resetParticles();
+        getAttractionManager().resetAttractions();
+        getSignsManager().resetSigns();
+
         consoleBanner(0);
     }
 
@@ -155,6 +167,11 @@ public class Core extends JavaPlugin {
         zoneManager.setPlugin(this);
     }
 
+    private void setSignsManager() {
+        signsManager = SignsManager.getInstance();
+        signsManager.setPlugin(this);
+    }
+
     public AttractionManager getAttractionManager() {
         return attractionManager;
     }
@@ -163,7 +180,15 @@ public class Core extends JavaPlugin {
         return zoneManager;
     }
 
+    public SignsManager getSignsManager() {
+        return signsManager;
+    }
+
     public String getPrefix() {
         return CHAT_PREFIX;
+    }
+    
+    public static Core getInstance() {
+        return plugin;
     }
 }

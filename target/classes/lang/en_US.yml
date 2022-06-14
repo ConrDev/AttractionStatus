@@ -5,7 +5,9 @@ errors:
   command-not-found: "&cCommand not found!"
   dont-exists: "&e%object% &cdoes not exist!"
   exists: "&e%object% &calready exists!"
-  wrong-command: "&cThis command is wrong! you need to type this in: &e%command%"
+  wrong-command: "&cThis command is wrong! You need to type this in: &e%command%"
+  wrong-status: "The given status is wrong! You need to choose from: &e%list%"
+  not-owner: "&cSorry, you are not the owner of this attraction sign!"
   no-attractions:
     - "No attractions were found!"
     - "Maybe you should make some ;)"
@@ -32,10 +34,6 @@ messages:
     in-zone: "is standing in Zone: &d%zone%"
     hover: "Click to go to &e%attraction%"
     no-zone: "No zone found"
-    # Messages for Attraction Signs
-    sign:
-      created: "&aAttraction Sign for &e%attraction% &asuccessfully created!"
-      removed: "&cThe attraction sign from &e%attraction% &chas been removed successfully!"
   # Messages for Zones
   zone:
     loading-all: "Loading zones..."
@@ -44,6 +42,11 @@ messages:
       creating: "Creating zone data for &d%zone%"
       loading: "Loading zone data for &d%zone%"
       saving: "Saving zone data for &d%zone%"
+  # Messages for Attraction Signs
+  sign:
+    loading-all: "Loading signs..."
+    created: "&aAttraction Sign for &e%attraction% &asuccessfully created!"
+    removed: "&cThe attraction sign from &e%attraction% &chas been removed successfully!"
   # Messages for Variables
   variables:
     name: "add name variable to"
@@ -71,8 +74,15 @@ commands:
     addzone: "Add a Zone to the list"
     removezone: "Remove a Zone from the list"
 
-# Default attraction status
+# Default attraction status (you can't add more)
 status:
   opened: "&aOpened"
   maintenance: "&6Maintenance"
   closed: "&cClosed"
+
+# Default menu
+menus:
+  attractions:
+    title: "Attractions"
+  zones:
+    title: "Zones"

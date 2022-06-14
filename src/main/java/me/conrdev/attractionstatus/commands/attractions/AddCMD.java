@@ -1,6 +1,6 @@
 package me.conrdev.attractionstatus.commands.attractions;
 
-import me.conrdev.attractionstatus.Objects.Attraction;
+import me.conrdev.attractionstatus.objects.Attraction;
 import me.conrdev.attractionstatus.commands.AttractionsCMD;
 import me.conrdev.attractionstatus.commands.abstracts.DefaultAttractionsCMD;
 import me.conrdev.attractionstatus.config.ConfigManager;
@@ -12,9 +12,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 
 public class AddCMD extends DefaultAttractionsCMD {
 
@@ -27,7 +25,8 @@ public class AddCMD extends DefaultAttractionsCMD {
         super("Add",
                 "/attractions add <Attraction Name>",
                 configManager.getRawString(configs.getLang(), "commands.attractions.add"),
-                "attractionstatus.attractions.add");
+                "attractionstatus.attractions.add",
+                false);
         this.executor = executor;
         this.configs = configs;
         this.configManager = configManager;
@@ -51,19 +50,17 @@ public class AddCMD extends DefaultAttractionsCMD {
 
         Map<String, String> map = new HashMap<>();
         map.put("%object%", attractionName);
+        map.put("%attraction%", attractionName);
 
         if (attractionManager.getAttraction(attractionName) != null) {
             MsgUtil.EXISTS.msg(sender, map, false);
             return;
         }
 
-        Map<String, String> attMap = new HashMap<>();
-        attMap.put("%attraction%", attractionName);
-
-        MsgUtil.ATTRACTION_CREATING_DATA.msg(sender, attMap, false);
+        MsgUtil.ATTRACTION_CREATING_DATA.msg(sender, map, false);
         Attraction attraction = attractionManager.createAttraction(
                 attractionName,
-                MsgUtil.CLOSED.getMessage(),
+                MsgUtil.CLOSED.name(),
                 player.getLocation().clone(),
                 MsgUtil.ATTRACTION_NO_ZONE.getMessage(),
                 player.getUniqueId()
@@ -74,6 +71,6 @@ public class AddCMD extends DefaultAttractionsCMD {
             return;
         }
 
-        MsgUtil.SUCCES_CREATED.msg(sender, attMap, false);
+        MsgUtil.SUCCES_CREATED.msg(sender, map, false);
     }
 }

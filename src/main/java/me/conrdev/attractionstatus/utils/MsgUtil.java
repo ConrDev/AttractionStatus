@@ -5,6 +5,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
+import java.util.Arrays;
 import java.util.Map;
 
 public enum MsgUtil {
@@ -23,8 +24,12 @@ public enum MsgUtil {
     DONT_EXISTS(Core.getConfigManager().getRawString(Core.getConfigs().getLang(), "errors.dont-exists")),
     EXISTS(Core.getConfigManager().getRawString(Core.getConfigs().getLang(), "errors.exists")),
     WRONGCMD(Core.getConfigManager().getRawString(Core.getConfigs().getLang(), "errors.wrong-command")),
-    NOATTRACTIONS(Core.getConfigManager().getRawStrings(Core.getConfigs().getLang(), "errors.no-attractions")),
-    NOZONES(Core.getConfigManager().getRawStrings(Core.getConfigs().getLang(), "errors.no-zones")),
+    WRONGSTATUS(Core.getConfigManager().getRawString(Core.getConfigs().getLang(), "errors.wrong-status")),
+//    NOATTRACTIONS(Core.getConfigManager().getRawStrings(Core.getConfigs().getLang(), "errors.no-attractions")),
+//    NOZONES(Core.getConfigManager().getRawStrings(Core.getConfigs().getLang(), "errors.no-zones")),
+    NOTOWNER(Core.getConfigManager().getRawString(Core.getConfigs().getLang(), "errors.not-owner")),
+    NOATTRACTIONS(Arrays.toString(Core.getConfigManager().getRawStrings(Core.getConfigs().getLang(), "errors.no-attractions")).replace("[", "").replace("]", "")),
+    NOZONES(Arrays.toString(Core.getConfigManager().getRawStrings(Core.getConfigs().getLang(), "errors.no-zones")).replace("[", "").replace("]", "")),
 
     OPENED(Core.getConfigManager().getRawString(Core.getConfigs().getLang(), "status.opened")),
     MAINTENANCE(Core.getConfigManager().getRawString(Core.getConfigs().getLang(), "status.maintenance")),
@@ -48,8 +53,10 @@ public enum MsgUtil {
     ATTRACTION_HOVER(Core.getConfigManager().getRawString(Core.getConfigs().getLang(), "messages.attraction.hover")),
     ATTRACTION_NO_ZONE(Core.getConfigManager().getRawString(Core.getConfigs().getLang(), "messages.attraction.no-zone")),
 
-    ATTRACTION_SIGN_CREATED(Core.getConfigManager().getRawString(Core.getConfigs().getLang(), "messages.attraction.sign.created")),
-    ATTRACTION_SIGN_REMOVED(Core.getConfigManager().getRawString(Core.getConfigs().getLang(), "messages.attraction.sign.removed")),
+    SIGNS_LOADING(Core.getConfigManager().getRawString(Core.getConfigs().getLang(), "messages.sign.loading-all")),
+
+    ATTRACTION_SIGN_CREATED(Core.getConfigManager().getRawString(Core.getConfigs().getLang(), "messages.sign.created")),
+    ATTRACTION_SIGN_REMOVED(Core.getConfigManager().getRawString(Core.getConfigs().getLang(), "messages.sign.removed")),
 
     ZONES_LOADING(Core.getConfigManager().getRawString(Core.getConfigs().getLang(), "messages.zone.loading-all")),
 
@@ -76,8 +83,8 @@ public enum MsgUtil {
 
     public String getMessage() {
         return getMessage("");
-    }    
-    
+    }
+
     public String getMessage(String splitter) {
         if (getMessages().length > 1) {
             return String.join(splitter, getMessages());

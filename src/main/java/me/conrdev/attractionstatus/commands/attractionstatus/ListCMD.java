@@ -1,7 +1,7 @@
 package me.conrdev.attractionstatus.commands.attractionstatus;
 
 import com.google.common.collect.Maps;
-import me.conrdev.attractionstatus.Objects.Attraction;
+import me.conrdev.attractionstatus.objects.Attraction;
 import me.conrdev.attractionstatus.commands.AttractionStatusCMD;
 import me.conrdev.attractionstatus.commands.abstracts.DefaultAttractionStatusCMD;
 import me.conrdev.attractionstatus.config.ConfigManager;
@@ -71,7 +71,7 @@ public class ListCMD extends DefaultAttractionStatusCMD {
             );
 
             final Map<String, String> hover = Maps.newHashMap();
-            hover.put("%attraction%", AttName.replace('_', ' '));
+            hover.put("%attraction%", Util.title(AttName));
 
             String hoverString = Util.placeHolder(
                     MsgUtil.ATTRACTION_HOVER.getMessage(),
@@ -82,9 +82,9 @@ public class ListCMD extends DefaultAttractionStatusCMD {
             ComponentBuilder message = new ComponentBuilder(Util.color(i))
                     .append(new ComponentBuilder(Util.color(Name))
                             .event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/attractions tp " + AttName))
-                            .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(hoverString).create()))
+                            .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(Util.color(hoverString)).create()))
                             .create())
-                    .append(new ComponentBuilder(Util.color("&8 - " + Zone.replace('_', ' '))).create());
+                    .append(new ComponentBuilder(Util.color("&8 - " + Util.title(Zone))).create());
 
             Util.msg(sender, message);
         }

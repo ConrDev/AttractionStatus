@@ -1,6 +1,6 @@
 package me.conrdev.attractionstatus.commands.attractions;
 
-import me.conrdev.attractionstatus.Objects.Attraction;
+import me.conrdev.attractionstatus.objects.Attraction;
 import me.conrdev.attractionstatus.commands.AttractionsCMD;
 import me.conrdev.attractionstatus.commands.abstracts.DefaultAttractionsCMD;
 import me.conrdev.attractionstatus.config.ConfigManager;
@@ -8,11 +8,7 @@ import me.conrdev.attractionstatus.config.Configs;
 import me.conrdev.attractionstatus.managers.AttractionManager;
 import me.conrdev.attractionstatus.utils.MsgUtil;
 import me.conrdev.attractionstatus.utils.TpUtil;
-import me.conrdev.attractionstatus.utils.Util;
-import org.apache.commons.lang.ArrayUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,7 +24,8 @@ public class TpCMD extends DefaultAttractionsCMD {
         super("Tp",
                 "/attractions tp <Attraction Name>",
                 configManager.getRawString(configs.getLang(), "commands.attractions.tp"),
-                "attractionstatus.attractions.tp");
+                "attractionstatus.attractions.tp",
+                false);
 
         this.executor = executor;
         this.configs = configs;
@@ -57,7 +54,7 @@ public class TpCMD extends DefaultAttractionsCMD {
             return;
         }
 
-        if (TpUtil.tp(sender, attraction.getLocation())) {
+        if (attraction.telepertPlayer(sender)) {
             Map<String, String> map = new HashMap<>();
             map.put("%object%", attraction.getName());
 

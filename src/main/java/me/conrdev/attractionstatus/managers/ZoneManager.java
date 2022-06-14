@@ -1,8 +1,8 @@
 package me.conrdev.attractionstatus.managers;
 
 import me.conrdev.attractionstatus.Core;
-import me.conrdev.attractionstatus.Objects.Attraction;
-import me.conrdev.attractionstatus.Objects.Zone;
+import me.conrdev.attractionstatus.objects.Attraction;
+import me.conrdev.attractionstatus.objects.Zone;
 import me.conrdev.attractionstatus.config.ConfigManager;
 import me.conrdev.attractionstatus.config.Configs;
 import me.conrdev.attractionstatus.utils.MsgUtil;
@@ -162,13 +162,13 @@ public class ZoneManager {
         zones.clear();
     }
 
-    public static Zone getZone(int id) {
+    public Zone getZone(int id) {
         return zones.get(id);
     }
 
-    public static Zone getZone(String zoneName) {
+    public Zone getZone(String zoneName) {
         for (Zone zone : zones.values()) {
-            if (Objects.equals(zone.getName(), zoneName)) {
+            if (zone.getName().equalsIgnoreCase(zoneName)) {
                 return getZone(zone.getId());
             }
         }

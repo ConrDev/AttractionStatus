@@ -1,10 +1,10 @@
 package me.conrdev.attractionstatus.managers;
 
 import me.conrdev.attractionstatus.Core;
-import me.conrdev.attractionstatus.Objects.Attraction;
-import me.conrdev.attractionstatus.Objects.Zone;
 import me.conrdev.attractionstatus.config.ConfigManager;
 import me.conrdev.attractionstatus.config.Configs;
+import me.conrdev.attractionstatus.objects.Attraction;
+import me.conrdev.attractionstatus.objects.Zone;
 import me.conrdev.attractionstatus.utils.MsgUtil;
 import me.conrdev.attractionstatus.utils.Util;
 import org.bukkit.Bukkit;
@@ -107,7 +107,7 @@ public class AttractionManager {
         ArrayList<Boolean> data = new ArrayList<>();
 
         data.add(configManager.setData(configs.getAttractions(), path + ".name", attraction.getName()));
-        data.add(configManager.setData(configs.getAttractions(), path + ".status", attraction.getStatus()));
+        data.add(configManager.setData(configs.getAttractions(), path + ".status", attraction.getStatus(false)));
         data.add(configManager.setData(configs.getAttractions(), path + ".zone", attraction.getZone()));
         data.add(configManager.setData(configs.getAttractions(), path + ".owner", attraction.getOwner().toString()));
         data.add(configManager.setLocation(configs.getAttractions(), path + ".location", attraction.getLocation()));
@@ -123,7 +123,7 @@ public class AttractionManager {
     public boolean removeAttraction(Attraction attraction) {
         int id = attraction.getId();
         String path = "attractions." + id;
-        Zone zone = ZoneManager.getZone(attraction.getZone());
+        Zone zone = ZoneManager.getInstance().getZone(attraction.getZone());
 
         if (zone != null) {
             zone.removeAttraction(attraction);
@@ -149,9 +149,9 @@ public class AttractionManager {
     }
 
     public Attraction getAttraction(String attractionName) {
-        attractionName = ChatColor.stripColor(attractionName);
+        attractionName = Util.stripColor(attractionName);
         for (Attraction attraction : attractions.values()) {
-            if (attraction.getName().equalsIgnoreCase(attractionName)) {
+            if (Util.stripColor(attraction.getName()).equalsIgnoreCase(attractionName)) {
                 return getAttraction(attraction.getId());
             }
         }

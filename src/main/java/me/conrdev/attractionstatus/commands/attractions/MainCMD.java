@@ -4,8 +4,10 @@ import me.conrdev.attractionstatus.commands.AttractionsCMD;
 import me.conrdev.attractionstatus.commands.abstracts.DefaultAttractionsCMD;
 import me.conrdev.attractionstatus.config.ConfigManager;
 import me.conrdev.attractionstatus.config.Configs;
+import me.conrdev.attractionstatus.menus.AttractionsMenu;
 import me.conrdev.attractionstatus.utils.Util;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import java.util.Iterator;
 import java.util.Set;
@@ -20,7 +22,8 @@ public class MainCMD extends DefaultAttractionsCMD {
         super("Menu",
                 "/attractions",
                 configManager.getRawString(configs.getLang(), "commands.attractions.menu"),
-                "attractionstatus.attractions.menu");
+                "attractionstatus.attractions.menu",
+                false);
 
         this.executor = executor;
         this.configs = configs;
@@ -29,8 +32,8 @@ public class MainCMD extends DefaultAttractionsCMD {
 
     @Override
     public void run(CommandSender sender, String[] args) {
+        Player player = (Player) sender;
 
-        Util.msg(sender, "Attracties Menu");
-
+        new AttractionsMenu(player);
     }
 }

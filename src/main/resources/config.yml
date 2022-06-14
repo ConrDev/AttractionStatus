@@ -16,6 +16,14 @@ AttractionStatus:
 
 # Change menu settings
 Menus:
-  # Main menu
-  Main:
+  # Attraction menu
+  Attractions:
+    # Default is from lang files menu.attractions.title
+    # Title: "Attractions"
+    Size: 54
+
+  # Zones menu
+  Zones:
+    # Default is from lang files menu.zones.title
+    # Title: "Zones"
     Size: 27

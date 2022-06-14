@@ -8,12 +8,14 @@ public abstract class DefaultAttractionsCMD {
     private final String usage;
     private final String description;
     private final String permission;
+    public final boolean canUseInConsole;
 
-    public DefaultAttractionsCMD(String name, String usage, String description, String permission) {
+    public DefaultAttractionsCMD(String name, String usage, String description, String permission, boolean canUseInConsole) {
         this.name = name;
         this.usage = usage;
         this.description = description;
         this.permission = permission;
+        this.canUseInConsole = canUseInConsole;
     }
 
     abstract public void run(CommandSender sender, String[] args);
